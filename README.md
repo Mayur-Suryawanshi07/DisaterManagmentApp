@@ -1,6 +1,3 @@
-# DisaterManagmentApp
-
-create a Disaster Management App using
 # Disaster Management App
 
 [![GitHub license](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/YOUR_USERNAME/YOUR_REPO_NAME/blob/main/LICENSE)
