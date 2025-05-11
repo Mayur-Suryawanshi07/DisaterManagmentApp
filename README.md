@@ -1,7 +1,5 @@
 # Disaster Management App
 
-[![GitHub license](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/YOUR_USERNAME/YOUR_REPO_NAME/blob/main/LICENSE)
-
 ## Overview
 
 The Disaster Management App is an Android application designed to provide users with real-time information about natural disasters and quick access to emergency contacts. Leveraging data from the NASA EONET API, the app displays a categorized list of recent natural events, including WildFire, EarthQuake, and Cyclone events. Users can browse these events, view their details, and stay informed about ongoing situations.
