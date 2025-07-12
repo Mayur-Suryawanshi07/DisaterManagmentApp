@@ -12,7 +12,7 @@ import com.example.disastermanagmentapp.Interface.MapScreen.MapScreen
 
 
 @Composable
-fun Nav(modifier: Modifier, navController: NavHostController) {
+fun Nav(navController: NavHostController) {
     NavHost(
         navController = navController,
         startDestination = Screen.AllScreen.route
@@ -43,3 +43,4 @@ fun Nav(modifier: Modifier, navController: NavHostController) {
         }
     }
 }
+//mew
