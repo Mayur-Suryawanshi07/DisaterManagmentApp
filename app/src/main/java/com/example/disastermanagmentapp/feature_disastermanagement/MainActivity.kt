@@ -18,6 +18,7 @@ open class MainActivity : ComponentActivity() {
         setContent {
 
             val isDarkTheme = rememberSaveable { mutableStateOf(false) }
+
             DisasterManagmentAppTheme(darkTheme = isDarkTheme.value) {
                 UserInterface(this, isDarkTheme)
             }

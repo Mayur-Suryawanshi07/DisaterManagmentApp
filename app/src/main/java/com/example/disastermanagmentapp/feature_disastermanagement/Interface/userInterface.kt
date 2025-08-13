@@ -134,7 +134,7 @@ fun UserInterface(context: Context, isDarkTheme: MutableState<Boolean>) {
             }
 
         ) { innerPadding ->
-            Nav(modifier = Modifier.padding(innerPadding), navController = navController)
+            Nav( Modifier.padding(innerPadding), navController = navController)
         }
     }
 }
