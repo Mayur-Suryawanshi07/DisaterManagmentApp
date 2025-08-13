@@ -2,16 +2,19 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     kotlin("plugin.serialization") version "2.0.21"
+    alias(libs.plugins.compose.compiler)
+    id("kotlin-parcelize")
+    id("com.google.devtools.ksp")
 }
 
 android {
     namespace = "com.example.disastermanagmentapp"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.example.disastermanagmentapp"
         minSdk = 26
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
@@ -62,6 +65,7 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.litert.support.api)
     implementation(libs.androidx.lifecycle.viewmodel.android)
+    implementation(libs.material3)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -69,41 +73,49 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-    val nav_version = "2.8.9"
 
     // Jetpack Compose integration
-    implementation("androidx.navigation:navigation-compose:$nav_version")
+    implementation(libs.androidx.navigation.compose)
 
     // Views/Fragments integration
-    implementation("androidx.navigation:navigation-fragment:$nav_version")
-    implementation("androidx.navigation:navigation-ui:$nav_version")
+    implementation(libs.androidx.navigation.fragment)
+    implementation(libs.androidx.navigation.ui)
 
     // Feature module support for Fragments
-    implementation("androidx.navigation:navigation-dynamic-features-fragment:$nav_version")
+    implementation(libs.androidx.navigation.dynamic.features.fragment)
 
     // Testing Navigation
-    androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
+    androidTestImplementation(libs.androidx.navigation.testing)
 
     // JSON serialization library, works with the Kotlin serialization plugin
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
+    implementation(libs.kotlinx.serialization.json)
 
     //Retrofit and gson-Converter
-    implementation("com.squareup.retrofit2:retrofit:2.11.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
-    implementation("com.squareup.retrofit2:converter-simplexml:2.9.0")
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.converter.simplexml)
 
     //coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    implementation(libs.kotlinx.coroutines.android)
 
-    val lifecycle_version = "2.7.0"
-    implementation ("androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version")
-    implementation ("androidx.lifecycle:lifecycle-livedata:$lifecycle_version")
-    implementation("androidx.compose.runtime:runtime-livedata")
 
-    implementation("io.coil-kt:coil-compose:2.4.0")
-    implementation("androidx.compose.material:material-icons-extended")
-    implementation("androidx.datastore:datastore-preferences:1.0.0")
+    implementation (libs.androidx.lifecycle.viewmodel)
+    implementation (libs.androidx.lifecycle.livedata)
+    implementation(libs.androidx.runtime.livedata)
+
+    //coil
+    implementation(libs.coil.compose)
+
+    //material design
+    implementation(libs.androidx.material.icons.extended)
+    implementation(libs.androidx.datastore.preferences)
+
+    //Navigation
+    implementation(libs.androidx.navigation.compose)
+
 
 
 }
+
+
 

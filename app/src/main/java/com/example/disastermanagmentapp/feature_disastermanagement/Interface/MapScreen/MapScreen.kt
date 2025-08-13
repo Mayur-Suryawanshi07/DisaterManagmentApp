@@ -1,4 +1,4 @@
-package com.example.disastermanagmentapp.Interface.MapScreen
+package com.example.disastermanagmentapp.feature_disastermanagement.Interface.MapScreen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box

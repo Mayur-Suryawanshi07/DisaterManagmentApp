@@ -1,4 +1,4 @@
-package com.example.disastermanagmentapp.Interface.EmergencyContactScreen
+package com.example.disastermanagmentapp.feature_disastermanagement.Interface.EmergencyContactScreen
 
 import android.content.Context
 import android.content.Intent

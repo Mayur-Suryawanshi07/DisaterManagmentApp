@@ -1,4 +1,4 @@
-package com.example.disastermanagmentapp.Navigation
+package com.example.disastermanagmentapp.feature_disastermanagement.Navigation
 
 
 sealed class Screen(val route: String) {

@@ -1,4 +1,4 @@
-package com.example.disastermanagmentapp.ui.theme
+package com.example.disastermanagmentapp.feature_disastermanagement.theme
 
 import androidx.compose.ui.graphics.Color
 

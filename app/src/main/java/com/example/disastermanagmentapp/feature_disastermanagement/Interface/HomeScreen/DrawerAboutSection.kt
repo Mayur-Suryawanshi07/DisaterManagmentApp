@@ -1,4 +1,4 @@
-package com.example.disastermanagmentapp.Interface.HomeScreen
+package com.example.disastermanagmentapp.feature_disastermanagement.Interface.HomeScreen
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column

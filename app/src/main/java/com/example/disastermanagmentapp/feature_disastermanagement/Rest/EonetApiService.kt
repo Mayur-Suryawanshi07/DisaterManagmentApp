@@ -1,4 +1,4 @@
-package com.example.disastermanagmentapp.Rest
+package com.example.disastermanagmentapp.feature_disastermanagement.Rest
 
 import retrofit2.http.GET
 

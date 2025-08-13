@@ -1,4 +1,4 @@
-package com.example.disastermanagmentapp.Interface
+package com.example.disastermanagmentapp.feature_disastermanagement.Interface
 
 import android.content.Context
 import android.os.Build
@@ -62,8 +62,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.disastermanagmentapp.Navigation.Nav
-import com.example.disastermanagmentapp.Navigation.Screen
+import com.example.disastermanagmentapp.feature_disastermanagement.Navigation.Nav
+import com.example.disastermanagmentapp.feature_disastermanagement.Navigation.Screen
 import com.example.disastermanagmentapp.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -134,7 +134,7 @@ fun UserInterface(context: Context, isDarkTheme: MutableState<Boolean>) {
             }
 
         ) { innerPadding ->
-            Nav( Modifier.padding(innerPadding), navController = navController)
+            Nav(navController = navController, modifier = Modifier.padding(innerPadding))
         }
     }
 }
