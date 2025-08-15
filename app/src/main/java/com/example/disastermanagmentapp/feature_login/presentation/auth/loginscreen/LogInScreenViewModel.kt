@@ -1,0 +1,92 @@
+package com.example.disastermanagmentapp.feature_login.presentation.auth.loginscreen
+
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.lifecycle.ViewModel
+import androidx.room.util.copy
+import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+
+class LogInScreenViewModel : ViewModel() {
+
+    private val _state = MutableStateFlow<LoginUiState>(LoginUiState.Unauthorized)
+    val state: StateFlow<LoginUiState> = _state.asStateFlow()
+
+    val auth = FirebaseAuth.getInstance()
+
+    init {
+        checkAuthentication()
+    }
+
+    fun checkAuthentication() {
+        if (auth.currentUser == null) {
+            _state.update {
+                LoginUiState.Unauthorized
+            }
+        } else {
+            _state.update {
+                LoginUiState.Authorized
+            }
+        }
+    }
+
+    fun login(email: String, password: String) {
+        _state.update {
+            LoginUiState.Loading
+        }
+
+        if (email.isEmpty() || password.isEmpty()) {
+            _state.update {
+                LoginUiState.Error("Email and Password Cannot be empty")
+            }
+        }
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    _state.update {
+                        LoginUiState.Authorized
+                    }
+                } else {
+                    _state.update {
+                        LoginUiState.Unauthorized
+                    }
+                }
+            }
+    }
+
+    fun signup(email: String, password: String) {
+        _state.update {
+            LoginUiState.Loading
+        }
+
+        if (email.isEmpty() || password.isEmpty()) {
+            _state.update {
+                LoginUiState.Error("Email and Password Cannot be empty")
+            }
+        }
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    _state.update {
+                        LoginUiState.Authorized
+                    }
+                } else {
+                    _state.update {
+                        LoginUiState.Unauthorized
+                    }
+                }
+            }
+    }
+
+    fun signOut() {
+        auth.signOut()
+    }
+
+
+}

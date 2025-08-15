@@ -1,4 +1,4 @@
-package com.example.disastermanagmentapp.feature_login.presentation.loginscreen
+package com.example.disastermanagmentapp.feature_login.presentation.auth.loginscreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -21,6 +21,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -38,6 +41,10 @@ fun LogInScreen(
 ) {
     val viewModel = viewModel<LogInScreenViewModel>()
     val state by viewModel.state.collectAsState()
+
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+
 
     Box(
         modifier = Modifier
@@ -63,9 +70,9 @@ fun LogInScreen(
 
             //username
             OutlinedTextField(
-                value = viewModel.userName,
+                value = email,
                 onValueChange = {
-                    viewModel.userName = it
+                    email= it
                 },
                 leadingIcon = {
                     Icon(imageVector = Icons.Default.Approval, contentDescription = "")
@@ -78,9 +85,9 @@ fun LogInScreen(
             Spacer(Modifier.height(6.dp))
             //password
             OutlinedTextField(
-                value = viewModel.passWord,
+                value = password,
                 onValueChange = {
-                    viewModel.passWord = it
+                    password = it
                 },
                 label = {
                     Text(text = "Password")
@@ -91,7 +98,7 @@ fun LogInScreen(
 
             Button(
                 onClick = {
-
+                    viewModel.login(email,password)
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {
@@ -104,7 +111,7 @@ fun LogInScreen(
                 modifier = Modifier
                     .align(Alignment.End)
                     .clickable {
-
+                        
                     },
                 color = Color.DarkGray
 

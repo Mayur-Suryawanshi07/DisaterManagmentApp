@@ -8,8 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import com.example.disastermanagmentapp.feature_disastermanagement.theme.DisasterManagmentAppTheme
-import com.example.disastermanagmentapp.feature_disastermanagement.Interface.UserInterface
-import com.example.disastermanagmentapp.feature_login.presentation.loginscreen.LogInScreen
+import com.example.disastermanagmentapp.feature_login.presentation.auth.loginscreen.LogInScreen
 
 open class MainActivity : ComponentActivity() {
 

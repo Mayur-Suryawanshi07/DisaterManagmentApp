@@ -1,4 +1,4 @@
-package com.example.disastermanagmentapp.feature_login.presentation.signupscreen
+package com.example.disastermanagmentapp.feature_login.presentation.auth.signupscreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable

@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
     id("kotlin-parcelize")
     id("com.google.devtools.ksp")
+    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
@@ -66,6 +67,8 @@ dependencies {
     implementation(libs.litert.support.api)
     implementation(libs.androidx.lifecycle.viewmodel.android)
     implementation(libs.material3)
+    implementation(libs.firebase.auth)
+    implementation(libs.androidx.room.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
