@@ -14,6 +14,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -22,16 +23,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import com.example.disastermanagmentapp.R
 
 @Composable
-fun SignUpScreen(modifier: Modifier = Modifier) {
+fun SignUpScreen(modifier: Modifier = Modifier,navigation: NavHostController) {
+    val viewModel= viewModel<SignUpViewModel>()
+    val state by viewModel.state.collectAsState()
     var name by remember { mutableStateOf("") }
-    var userName by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("") }
     var passWord by remember { mutableStateOf("") }
+
 
     Box(
         modifier = Modifier.fillMaxSize(),
@@ -49,25 +54,25 @@ fun SignUpScreen(modifier: Modifier = Modifier) {
             )
             Spacer(Modifier.height(24.dp))
 
+//            OutlinedTextField(
+//                value = name,
+//                onValueChange = {
+//                    name = it
+//                },
+//                label = {
+//                    Text(text = "Full Name")
+//                }
+//            )
+//
+//            Spacer(Modifier.height(6.dp))
+
             OutlinedTextField(
-                value = name,
+                value = email,
                 onValueChange = {
-                    name = it
+                    email = it
                 },
                 label = {
-                    Text(text = "Full Name")
-                }
-            )
-
-            Spacer(Modifier.height(6.dp))
-
-            OutlinedTextField(
-                value = userName,
-                onValueChange = {
-                    userName = it
-                },
-                label = {
-                    Text(text = "Username or Email")
+                    Text(text = "Email")
                 }
             )
 
@@ -87,11 +92,11 @@ fun SignUpScreen(modifier: Modifier = Modifier) {
 
             Button(
                 onClick = {
-
+                    viewModel.signup(email = email, password = passWord)
                 },
                 modifier = Modifier.width(270.dp)
             ) {
-                Text(text = "Login")
+                Text(text = "Signup")
             }
 
 
@@ -127,17 +132,11 @@ fun SignUpScreen(modifier: Modifier = Modifier) {
                     fontSize = 16.sp,
                     modifier = Modifier
                         .clickable {
-
+                            navigation.popBackStack()
                         }
                 )
             }
 
         }
     }
-}
-
-@Preview(showSystemUi = true, showBackground = true)
-@Composable
-private fun SignUpPre() {
-    SignUpScreen()
 }

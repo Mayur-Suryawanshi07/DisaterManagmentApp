@@ -1,4 +1,4 @@
-package com.example.disastermanagmentapp.feature_disastermanagement.Rest
+package com.example.disastermanagmentapp.feature_disastermanagement.data.remote.model
 
 data class EonetModel(val events: List<Event>)
 

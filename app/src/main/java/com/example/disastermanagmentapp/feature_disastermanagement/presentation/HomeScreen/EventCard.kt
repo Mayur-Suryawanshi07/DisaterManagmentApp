@@ -1,4 +1,4 @@
-package com.example.disastermanagmentapp.feature_disastermanagement.Interface.HomeScreen
+package com.example.disastermanagmentapp.feature_disastermanagement.presentation.HomeScreen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,7 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.disastermanagmentapp.feature_disastermanagement.Rest.Event
+import com.example.disastermanagmentapp.feature_disastermanagement.data.remote.model.Event
 
 @Composable
 fun EventCard(event: Event) {

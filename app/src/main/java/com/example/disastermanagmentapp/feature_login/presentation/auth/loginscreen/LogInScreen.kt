@@ -13,12 +13,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Approval
+import androidx.compose.material.icons.filled.Man
+import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -27,23 +30,35 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalGraphicsContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import com.example.disastermanagmentapp.R
+import com.example.disastermanagmentapp.feature_login.presentation.navigation.Routes
 
 
 @Composable
 fun LogInScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    navigation : NavHostController
 ) {
     val viewModel = viewModel<LogInScreenViewModel>()
-    val state by viewModel.state.collectAsState()
+    val state = viewModel.state.collectAsState()
 
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+
+    LaunchedEffect(state.value) {
+        when(state.value){
+            is LoginUiState.Authorized -> navigation.navigate(Routes.home)
+            else -> LoginUiState.Error()
+        }
+    }
 
 
     Box(
@@ -74,8 +89,8 @@ fun LogInScreen(
                 onValueChange = {
                     email= it
                 },
-                leadingIcon = {
-                    Icon(imageVector = Icons.Default.Approval, contentDescription = "")
+                trailingIcon = {
+                    Icon(imageVector = Icons.Default.Man, contentDescription = "")
                 },
                 label = {
                     Text(text = "Username or Email")
@@ -89,6 +104,9 @@ fun LogInScreen(
                 onValueChange = {
                     password = it
                 },
+                trailingIcon = {
+                    Icon(imageVector = Icons.Default.Visibility, contentDescription = null)
+                },
                 label = {
                     Text(text = "Password")
                 }
@@ -99,6 +117,7 @@ fun LogInScreen(
             Button(
                 onClick = {
                     viewModel.login(email,password)
+
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {
@@ -138,7 +157,7 @@ fun LogInScreen(
                     fontSize = 16.sp,
                     modifier = Modifier
                         .clickable {
-
+                            navigation.navigate(Routes.signup)
                         }
                 )
             }
@@ -146,7 +165,9 @@ fun LogInScreen(
             Spacer(Modifier.height(6.dp))
 
             OutlinedButton(
-                onClick = {},
+                onClick = {
+                    navigation.navigate(Routes.home)
+                },
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(text = "Continue as guest")
@@ -157,13 +178,21 @@ fun LogInScreen(
 
     }
 
+//    LaunchedEffect(state) {
+//        when(state){
+//
+//        }
+//
+//
+//    }
+
 
 }
 
 
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-private fun LoginPre() {
-
-    LogInScreen()
-}
+//@Preview(showBackground = true, showSystemUi = true)
+//@Composable
+//private fun LoginPre() {
+//
+//    LogInScreen()
+//}

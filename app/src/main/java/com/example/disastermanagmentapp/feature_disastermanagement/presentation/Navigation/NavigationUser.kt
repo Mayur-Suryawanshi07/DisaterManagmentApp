@@ -1,17 +1,18 @@
-package com.example.disastermanagmentapp.feature_disastermanagement.Navigation
+package com.example.disastermanagmentapp.feature_disastermanagement.presentation.Navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.disastermanagmentapp.feature_disastermanagement.Interface.DisasterListForCategory
-import com.example.disastermanagmentapp.feature_disastermanagement.Interface.EmergencyContactScreen.EmergencyCallList
-import com.example.disastermanagmentapp.feature_disastermanagement.Interface.HomeScreen.AboutScreen
-import com.example.disastermanagmentapp.feature_disastermanagement.Interface.MapScreen.MapScreen
+import com.example.disastermanagmentapp.feature_disastermanagement.presentation.Interface.DisasterListForCategory
+import com.example.disastermanagmentapp.feature_disastermanagement.presentation.EmergencyContactScreen.EmergencyCallList
+import com.example.disastermanagmentapp.feature_disastermanagement.presentation.HomeScreen.AboutScreen
+import com.example.disastermanagmentapp.feature_disastermanagement.presentation.MapScreen.MapScreen
 
 
 @Composable
-fun Nav(navController: NavHostController, modifier: androidx.compose.ui.Modifier) {
+fun Nav(navController: NavHostController, modifier: Modifier) {
     NavHost(
         navController = navController,
         startDestination = Screen.AllScreen.route

@@ -8,7 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import com.example.disastermanagmentapp.feature_disastermanagement.theme.DisasterManagmentAppTheme
-import com.example.disastermanagmentapp.feature_login.presentation.auth.loginscreen.LogInScreen
+import com.example.disastermanagmentapp.feature_login.presentation.navigation.Navigation
 
 open class MainActivity : ComponentActivity() {
 
@@ -21,7 +21,7 @@ open class MainActivity : ComponentActivity() {
 
             DisasterManagmentAppTheme(darkTheme = isDarkTheme.value) {
                // UserInterface(this, isDarkTheme)
-                LogInScreen()
+                Navigation(context = this, isDark = isDarkTheme)
             }
         }
     }

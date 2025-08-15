@@ -1,18 +1,20 @@
-package com.example.disastermanagmentapp.feature_login.presentation.auth.loginscreen
+package com.example.disastermanagmentapp.feature_login.presentation.auth.signupscreen
 
+import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.ViewModel
+import com.example.disastermanagmentapp.feature_login.presentation.auth.loginscreen.LoginUiState
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
-class LogInScreenViewModel : ViewModel() {
+class SignUpViewModel : ViewModel() {
 
-    private val _state = MutableStateFlow<LoginUiState>(LoginUiState.Unauthorized)
-    val state: StateFlow<LoginUiState> = _state.asStateFlow()
+    private val auth = FirebaseAuth.getInstance()
 
-    val auth = FirebaseAuth.getInstance()
+    private val _state = MutableStateFlow<SignUpState>(SignUpState.Unauthenticated)
+    val state: StateFlow<SignUpState> = _state.asStateFlow()
 
     init {
         checkAuthentication()
@@ -21,37 +23,34 @@ class LogInScreenViewModel : ViewModel() {
     fun checkAuthentication() {
         if (auth.currentUser == null) {
             _state.update {
-                LoginUiState.Unauthorized
+                SignUpState.Unauthenticated
             }
         } else {
             _state.update {
-                LoginUiState.Authorized
+                SignUpState.Authenticated
             }
         }
     }
 
-    fun login(email: String, password: String) {
+    fun signup(email: String, password: String) {
         _state.update {
-            LoginUiState.Loading
+            SignUpState.Loading
         }
 
         if (email.isEmpty() || password.isEmpty()) {
             _state.update {
-                LoginUiState.Error("Email and Password Cannot be empty")
+                SignUpState.Error("Email and Password Cannot be empty")
             }
         }
-        auth.signInWithEmailAndPassword(email, password)
+        auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     _state.update {
-                        LoginUiState.Authorized
+                        SignUpState.Authenticated
                     }
                 } else {
                     _state.update {
-                        LoginUiState.Unauthorized
-                    }
-                    _state.update {
-                        LoginUiState.Error(message = "Email is not Registered")
+                        SignUpState.Unauthenticated
                     }
                 }
             }
@@ -59,10 +58,6 @@ class LogInScreenViewModel : ViewModel() {
 
 
 
-    fun signOut() {
-        auth.signOut()
-
-    }
-
 
 }
+

@@ -1,4 +1,4 @@
-package com.example.disastermanagmentapp.feature_disastermanagement.Interface
+package com.example.disastermanagmentapp.feature_disastermanagement.presentation.Interface
 
 import android.content.Context
 import android.os.Build
@@ -62,8 +62,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.disastermanagmentapp.feature_disastermanagement.Navigation.Nav
-import com.example.disastermanagmentapp.feature_disastermanagement.Navigation.Screen
+import com.example.disastermanagmentapp.feature_disastermanagement.presentation.Navigation.Nav
+import com.example.disastermanagmentapp.feature_disastermanagement.presentation.Navigation.Screen
 import com.example.disastermanagmentapp.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
