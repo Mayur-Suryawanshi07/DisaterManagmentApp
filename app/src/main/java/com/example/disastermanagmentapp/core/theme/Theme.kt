@@ -1,4 +1,4 @@
-package com.example.disastermanagmentapp.feature_disastermanagement.theme
+package com.example.disastermanagmentapp.core.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme

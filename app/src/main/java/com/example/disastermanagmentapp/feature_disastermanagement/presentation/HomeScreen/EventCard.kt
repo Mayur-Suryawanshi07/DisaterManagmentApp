@@ -14,10 +14,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.disastermanagmentapp.feature_disastermanagement.data.remote.model.Event
+import com.example.disastermanagmentapp.feature_disastermanagement.domain.model.DisasterEvent
 
 @Composable
-fun EventCard(event: Event) {
+fun EventCard(event: DisasterEvent) {
     Card(
         modifier = Modifier
             .fillMaxWidth()

@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
+
 class LogInScreenViewModel : ViewModel() {
 
     private val _state = MutableStateFlow<LoginUiState>(LoginUiState.Unauthorized)

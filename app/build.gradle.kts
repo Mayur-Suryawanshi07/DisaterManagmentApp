@@ -1,11 +1,13 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    kotlin("plugin.serialization") version "2.0.21"
+    kotlin("plugin.serialization") version "2.2.0"
     alias(libs.plugins.compose.compiler)
     id("kotlin-parcelize")
     id("com.google.devtools.ksp")
     alias(libs.plugins.google.gms.google.services)
+    id("com.google.dagger.hilt.android")
+    // Using KSP for all annotation processing
 }
 
 android {
@@ -35,17 +37,17 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = "1.8"
+    kotlin {
+        jvmToolchain(17)
     }
     buildFeatures {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "2.2.0"
     }
     packaging {
         resources {
@@ -55,7 +57,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -101,7 +102,6 @@ dependencies {
     //coroutines
     implementation(libs.kotlinx.coroutines.android)
 
-
     implementation (libs.androidx.lifecycle.viewmodel)
     implementation (libs.androidx.lifecycle.livedata)
     implementation(libs.androidx.runtime.livedata)
@@ -116,9 +116,17 @@ dependencies {
     //Navigation
     implementation(libs.androidx.navigation.compose)
 
-
-
+    // Hilt Dependency Injection with KSP
+    implementation("com.google.dagger:hilt-android:2.54")
+    ksp("com.google.dagger:hilt-android-compiler:2.54")
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+    
+    // Lifecycle and Compose
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.2")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+    
+    // Testing Dependencies
+    testImplementation("org.mockito:mockito-core:5.5.0")
+    testImplementation("org.mockito:mockito-kotlin:5.0.0")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0")
 }
-
-
-

@@ -56,7 +56,7 @@ fun LogInScreen(
     LaunchedEffect(state.value) {
         when(state.value){
             is LoginUiState.Authorized -> navigation.navigate(Routes.home)
-            else -> LoginUiState.Error()
+            else -> Unit
         }
     }
 
