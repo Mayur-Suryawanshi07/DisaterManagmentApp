@@ -1,12 +1,8 @@
-package com.example.disastermanagmentapp.feature_disastermanagement.presentation.viewmodel
+package com.example.disastermanagmentapp.feature_disastermanagement.presentation.screens.disaster_screen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.disastermanagmentapp.feature_disastermanagement.domain.use_cases.DisasterUseCase
-import com.example.disastermanagmentapp.feature_disastermanagement.domain.use_cases.GetDisasterEventsUseCase
-import com.example.disastermanagmentapp.feature_disastermanagement.domain.use_cases.SearchDisasterEventsUseCase
-import com.example.disastermanagmentapp.feature_disastermanagement.presentation.state.DisasterEventListState
-import com.example.disastermanagmentapp.feature_disastermanagement.presentation.state.DisasterEventUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -16,12 +12,12 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DisasterEventViewModel @Inject constructor(
-    private val useCases : DisasterUseCase
+class DisasterScreenViewModel @Inject constructor(
+    private val useCases: DisasterUseCase
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(DisasterEventListState())
-    val uiState: StateFlow<DisasterEventListState> = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow(DisasterScreenState())
+    val uiState: StateFlow<DisasterScreenState> = _uiState.asStateFlow()
 
     init {
         loadDisasterEvents()
@@ -29,20 +25,20 @@ class DisasterEventViewModel @Inject constructor(
 
     fun loadDisasterEvents() {
         viewModelScope.launch {
-            _uiState.update { it.copy(uiState = DisasterEventUiState.Loading) }
-            
+            _uiState.update { it.copy(uiState = DisasterScreenUiState.Loading) }
+
             try {
                 useCases.getDisasterUseCase().collect { events ->
                     val newUiState = if (events.isEmpty()) {
-                        DisasterEventUiState.Empty
+                        DisasterScreenUiState.Empty
                     } else {
-                        DisasterEventUiState.Success(events)
+                        DisasterScreenUiState.Success(events)
                     }
                     _uiState.update { it.copy(uiState = newUiState) }
                 }
             } catch (e: Exception) {
-                _uiState.update { 
-                    it.copy(uiState = DisasterEventUiState.Error(e.message ?: "Unknown error occurred"))
+                _uiState.update {
+                    it.copy(uiState = DisasterScreenUiState.Error(e.message ?: "Unknown error occurred"))
                 }
             }
         }
@@ -55,25 +51,25 @@ class DisasterEventViewModel @Inject constructor(
         }
 
         viewModelScope.launch {
-            _uiState.update { 
+            _uiState.update {
                 it.copy(
                     searchQuery = query,
-                    uiState = DisasterEventUiState.Loading
+                    uiState = DisasterScreenUiState.Loading
                 )
             }
-            
+
             try {
                 useCases.searchDisaster(query).collect { events ->
                     val newUiState = if (events.isEmpty()) {
-                        DisasterEventUiState.Empty
+                        DisasterScreenUiState.Empty
                     } else {
-                        DisasterEventUiState.Success(events)
+                        DisasterScreenUiState.Success(events)
                     }
                     _uiState.update { it.copy(uiState = newUiState) }
                 }
             } catch (e: Exception) {
-                _uiState.update { 
-                    it.copy(uiState = DisasterEventUiState.Error(e.message ?: "Search failed"))
+                _uiState.update {
+                    it.copy(uiState = DisasterScreenUiState.Error(e.message ?: "Search failed"))
                 }
             }
         }

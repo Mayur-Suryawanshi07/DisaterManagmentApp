@@ -1,46 +1,32 @@
 package com.example.disastermanagmentapp.feature_disastermanagement.presentation.Navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
+import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.disastermanagmentapp.feature_disastermanagement.presentation.Interface.DisasterListForCategory
-import com.example.disastermanagmentapp.feature_disastermanagement.presentation.EmergencyContactScreen.EmergencyCallList
-import com.example.disastermanagmentapp.feature_disastermanagement.presentation.HomeScreen.AboutScreen
-import com.example.disastermanagmentapp.feature_disastermanagement.presentation.MapScreen.MapScreen
+import androidx.navigation.navigation
+import com.example.disastermanagmentapp.core.navigation.Graphs
+import com.example.disastermanagmentapp.core.navigation.Routes
+import com.example.disastermanagmentapp.feature_disastermanagement.presentation.screens.contact_screen.ContactScreen
+import com.example.disastermanagmentapp.feature_disastermanagement.presentation.screens.disaster_screen.DisasterScreen
+import com.example.disastermanagmentapp.feature_disastermanagement.presentation.screens.profilescreen.ProfileScreen
 
 
-@Composable
-fun Nav(navController: NavHostController, modifier: Modifier) {
-    NavHost(
-        navController = navController,
-        startDestination = Screen.AllScreen.route
-    ) {
-        composable(Screen.AllScreen.route) {
-            DisasterListForCategory(categoryName = "all") // Show all events
+fun NavGraphBuilder.mainNavGraph(navController: NavHostController) {
+
+    navigation<Graphs.Main>(startDestination = Routes.Home){
+        composable<Routes.Home> {
+            DisasterScreen(navController = navController)
         }
-        composable(Screen.Earthquake.route) {
-            DisasterListForCategory(categoryName = "Earthquakes")
+
+        composable<Routes.Contact> {
+            ContactScreen(navController = navController)
         }
-        composable(Screen.FireScreen.route) {
-            DisasterListForCategory(categoryName = "Wildfires") // Or "Fires" - check API
+
+        composable<Routes.Profile> {
+            ProfileScreen(navController = navController)
         }
-        composable(Screen.Cyclone.route) {  // Added Cyclone route
-            DisasterListForCategory(categoryName = "Severe Storms") // Or "Tropical Cyclone"
-        }
-        composable(Screen.About.route) {
-            AboutScreen()
-        }
-        composable(Screen.Flood.route) {
-            DisasterListForCategory(categoryName = "Flood")
-        }
-        composable(Screen.EmergencyCallList.route){
-            EmergencyCallList()
-        }
-        composable(Screen.Map.route){
-            MapScreen()
-        }
+
     }
+
 }
-//mew

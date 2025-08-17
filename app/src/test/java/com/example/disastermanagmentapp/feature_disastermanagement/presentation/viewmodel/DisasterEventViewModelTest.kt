@@ -3,7 +3,8 @@ package com.example.disastermanagmentapp.feature_disastermanagement.presentation
 import com.example.disastermanagmentapp.feature_disastermanagement.domain.model.DisasterEvent
 import com.example.disastermanagmentapp.feature_disastermanagement.domain.use_cases.GetDisasterEventsUseCase
 import com.example.disastermanagmentapp.feature_disastermanagement.domain.use_cases.SearchDisasterEventsUseCase
-import com.example.disastermanagmentapp.feature_disastermanagement.presentation.state.DisasterEventUiState
+import com.example.disastermanagmentapp.feature_disastermanagement.presentation.screens.disaster_screen.state.DisasterScreenUiState
+import com.example.disastermanagmentapp.feature_disastermanagement.presentation.screens.disaster_screen.viewmodel.DisasterScreenViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
@@ -18,7 +19,7 @@ import org.mockito.MockitoAnnotations
 import org.mockito.kotlin.whenever
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class DisasterEventViewModelTest {
+class DisasterScreenViewModelTest {
 
     @Mock
     private lateinit var mockGetDisasterEventsUseCase: GetDisasterEventsUseCase
@@ -26,14 +27,15 @@ class DisasterEventViewModelTest {
     @Mock
     private lateinit var mockSearchDisasterEventsUseCase: SearchDisasterEventsUseCase
 
-    private lateinit var viewModel: DisasterEventViewModel
+    private lateinit var viewModel: DisasterScreenViewModel
     private val testDispatcher = TestCoroutineDispatcher()
 
     @Before
     fun setup() {
         MockitoAnnotations.openMocks(this)
         Dispatchers.setMain(testDispatcher)
-        viewModel = DisasterEventViewModel(mockGetDisasterEventsUseCase, mockSearchDisasterEventsUseCase)
+        viewModel =
+            DisasterScreenViewModel(mockGetDisasterEventsUseCase, mockSearchDisasterEventsUseCase)
     }
 
     @After
@@ -45,7 +47,7 @@ class DisasterEventViewModelTest {
     @Test
     fun `initial state is Loading`() = runTest {
         // Then
-        assertEquals(DisasterEventUiState.Loading, viewModel.uiState.value.uiState)
+        assertEquals(DisasterScreenUiState.Loading, viewModel.uiState.value.uiState)
     }
 
     @Test
@@ -68,8 +70,8 @@ class DisasterEventViewModelTest {
         testDispatcher.advanceUntilIdle()
 
         // Then
-        assertTrue(viewModel.uiState.value.uiState is DisasterEventUiState.Success)
-        val successState = viewModel.uiState.value.uiState as DisasterEventUiState.Success
+        assertTrue(viewModel.uiState.value.uiState is DisasterScreenUiState.Success)
+        val successState = viewModel.uiState.value.uiState as DisasterScreenUiState.Success
         assertEquals(mockEvents, successState.events)
     }
 
@@ -83,7 +85,7 @@ class DisasterEventViewModelTest {
         testDispatcher.advanceUntilIdle()
 
         // Then
-        assertTrue(viewModel.uiState.value.uiState is DisasterEventUiState.Empty)
+        assertTrue(viewModel.uiState.value.uiState is DisasterScreenUiState.Empty)
     }
 
     @Test
@@ -108,7 +110,7 @@ class DisasterEventViewModelTest {
 
         // Then
         assertEquals(searchQuery, viewModel.uiState.value.searchQuery)
-        assertTrue(viewModel.uiState.value.uiState is DisasterEventUiState.Success)
+        assertTrue(viewModel.uiState.value.uiState is DisasterScreenUiState.Success)
     }
 
     @Test
@@ -154,6 +156,6 @@ class DisasterEventViewModelTest {
         testDispatcher.advanceUntilIdle()
 
         // Then
-        assertTrue(viewModel.uiState.value.uiState is DisasterEventUiState.Success)
+        assertTrue(viewModel.uiState.value.uiState is DisasterScreenUiState.Success)
     }
 }

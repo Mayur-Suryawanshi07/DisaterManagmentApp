@@ -1,4 +1,4 @@
-package com.example.disastermanagmentapp.feature_disastermanagement.presentation.HomeScreen
+package com.example.disastermanagmentapp.feature_disastermanagement.presentation.screens.disaster_screen
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -11,57 +11,74 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.disastermanagmentapp.feature_disastermanagement.presentation.state.DisasterEventUiState
-import com.example.disastermanagmentapp.feature_disastermanagement.presentation.viewmodel.DisasterEventViewModel
+import androidx.navigation.NavHostController
+import com.example.disastermanagmentapp.feature_disastermanagement.domain.model.DisasterEvent
+import com.example.disastermanagmentapp.feature_disastermanagement.presentation.component.MyBottomNavBar
+import com.example.disastermanagmentapp.feature_disastermanagement.presentation.component.MyTopAppBar
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(
-    viewModel: DisasterEventViewModel = hiltViewModel(),
-    modifier: Modifier = Modifier
+fun DisasterScreen(
+    viewModel: DisasterScreenViewModel = hiltViewModel(),
+    modifier: Modifier = Modifier,
+    navController : NavHostController
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    
-    Column(
-        modifier = modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        // Search Bar
-        OutlinedTextField(
-            value = uiState.searchQuery,
-            onValueChange = viewModel::searchDisasterEvents,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            placeholder = { Text("Search disaster events...") },
-            singleLine = true
-        )
 
-        // Content based on UI state
-        when (uiState.uiState) {
-            is DisasterEventUiState.Loading -> {
-                LoadingState()
-            }
-            is DisasterEventUiState.Success -> {
-                val events = (uiState.uiState as DisasterEventUiState.Success).events
-                if (events.isEmpty()) {
-                    EmptyState()
-                } else {
-                    DisasterEventList(
-                        events = events,
-                        onRefresh = viewModel::refreshEvents,
-                        isRefreshing = uiState.isRefreshing
+    Scaffold(
+        topBar = {
+            MyTopAppBar("Disaster List")
+        },
+        bottomBar = {
+            MyBottomNavBar(navController =navController )
+        }
+
+    ) {
+        Column(
+            modifier = modifier.fillMaxSize().padding(it),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            // Search Bar
+            OutlinedTextField(
+                value = uiState.searchQuery,
+                onValueChange = viewModel::searchDisasterEvents,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                placeholder = { Text("Search disaster events...") },
+                singleLine = true
+            )
+
+            // Content based on UI state
+            when (uiState.uiState) {
+                is DisasterScreenUiState.Loading -> {
+                    LoadingState()
+                }
+
+                is DisasterScreenUiState.Success -> {
+                    val events = (uiState.uiState as DisasterScreenUiState.Success).events
+                    if (events.isEmpty()) {
+                        EmptyState()
+                    } else {
+                        DisasterEventList(
+                            events = events,
+                            onRefresh = viewModel::refreshEvents,
+                            isRefreshing = uiState.isRefreshing
+                        )
+                    }
+                }
+
+                is DisasterScreenUiState.Error -> {
+                    val errorMessage = (uiState.uiState as DisasterScreenUiState.Error).message
+                    ErrorState(
+                        message = errorMessage,
+                        onRetry = viewModel::retry
                     )
                 }
-            }
-            is DisasterEventUiState.Error -> {
-                val errorMessage = (uiState.uiState as DisasterEventUiState.Error).message
-                ErrorState(
-                    message = errorMessage,
-                    onRetry = viewModel::retry
-                )
-            }
-            is DisasterEventUiState.Empty -> {
-                EmptyState()
+
+                is DisasterScreenUiState.Empty -> {
+                    EmptyState()
+                }
             }
         }
     }
@@ -138,7 +155,7 @@ private fun ErrorState(
 
 @Composable
 private fun DisasterEventList(
-    events: List<com.example.disastermanagmentapp.feature_disastermanagement.domain.model.DisasterEvent>,
+    events: List<DisasterEvent>,
     onRefresh: () -> Unit,
     isRefreshing: Boolean
 ) {
@@ -148,7 +165,7 @@ private fun DisasterEventList(
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(events) { event ->
-            EventCard(event = event)
+            DisasterScreenEventCard(event = event)
         }
     }
 }

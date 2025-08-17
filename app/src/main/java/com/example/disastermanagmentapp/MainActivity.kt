@@ -4,11 +4,13 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
+import androidx.compose.ui.Modifier
+import androidx.navigation.compose.rememberNavController
+import com.example.disastermanagmentapp.core.navigation.AppRootNav
 import com.example.disastermanagmentapp.core.theme.DisasterManagmentAppTheme
-import com.example.disastermanagmentapp.feature_disastermanagement.presentation.Interface.UserInterface
-import com.example.disastermanagmentapp.feature_login.presentation.navigation.Navigation
+import com.example.disastermanagmentapp.feature_disastermanagement.presentation.screens.disaster_screen.DisasterScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -18,15 +20,15 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            val navController= rememberNavController()
 
-            val isDarkTheme = rememberSaveable { mutableStateOf(false) }
+            DisasterManagmentAppTheme() {
 
-            DisasterManagmentAppTheme(darkTheme = isDarkTheme.value) {
-                 //UserInterface(this, isDarkTheme)
-                Navigation(context = this, isDark = isDarkTheme)
+
+                    AppRootNav()
+
+
             }
         }
     }
-
-
 }

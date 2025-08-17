@@ -1,5 +1,6 @@
 package com.example.disastermanagmentapp.feature_login.presentation.auth.loginscreen
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -30,6 +31,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalGraphicsContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -39,7 +41,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.disastermanagmentapp.R
-import com.example.disastermanagmentapp.feature_login.presentation.navigation.Routes
+import com.example.disastermanagmentapp.core.navigation.Routes
 
 
 @Composable
@@ -49,16 +51,23 @@ fun LogInScreen(
 ) {
     val viewModel = viewModel<LogInScreenViewModel>()
     val state = viewModel.state.collectAsState()
+    val context= LocalContext.current
 
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
     LaunchedEffect(state.value) {
-        when(state.value){
-            is LoginUiState.Authorized -> navigation.navigate(Routes.home)
+        when (val s = state.value) {
+            is LoginUiState.Authorized -> {
+                navigation.navigate(Routes.Home)
+            }
+            is LoginUiState.Error -> {
+                Toast.makeText(context, s.message, Toast.LENGTH_SHORT).show()
+            }
             else -> Unit
         }
     }
+
 
 
     Box(
@@ -87,7 +96,7 @@ fun LogInScreen(
             OutlinedTextField(
                 value = email,
                 onValueChange = {
-                    email= it
+                    email = it
                 },
                 trailingIcon = {
                     Icon(imageVector = Icons.Default.Man, contentDescription = "")
@@ -116,7 +125,7 @@ fun LogInScreen(
 
             Button(
                 onClick = {
-                    viewModel.login(email,password)
+                    viewModel.login(email, password)
 
                 },
                 modifier = Modifier.fillMaxWidth()
@@ -130,7 +139,7 @@ fun LogInScreen(
                 modifier = Modifier
                     .align(Alignment.End)
                     .clickable {
-                        
+
                     },
                 color = Color.DarkGray
 
@@ -157,7 +166,7 @@ fun LogInScreen(
                     fontSize = 16.sp,
                     modifier = Modifier
                         .clickable {
-                            navigation.navigate(Routes.signup)
+                            navigation.navigate(Routes.Signup)
                         }
                 )
             }
@@ -166,7 +175,7 @@ fun LogInScreen(
 
             OutlinedButton(
                 onClick = {
-                    navigation.navigate(Routes.home)
+                    navigation.navigate(Routes.Home)
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {
@@ -177,22 +186,4 @@ fun LogInScreen(
         }
 
     }
-
-//    LaunchedEffect(state) {
-//        when(state){
-//
-//        }
-//
-//
-//    }
-
-
 }
-
-
-//@Preview(showBackground = true, showSystemUi = true)
-//@Composable
-//private fun LoginPre() {
-//
-//    LogInScreen()
-//}

@@ -7,7 +7,6 @@ import com.example.disastermanagmentapp.feature_disastermanagement.domain.use_ca
 import com.example.disastermanagmentapp.feature_disastermanagement.domain.use_cases.GetDisasterEventByIdUseCase
 import com.example.disastermanagmentapp.feature_disastermanagement.domain.use_cases.GetDisasterEventsUseCase
 import com.example.disastermanagmentapp.feature_disastermanagement.domain.use_cases.SearchDisasterEventsUseCase
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -1,4 +1,4 @@
-package com.example.disastermanagmentapp.feature_disastermanagement.presentation.HomeScreen
+package com.example.disastermanagmentapp.feature_disastermanagement.presentation.screens.disaster_screen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import com.example.disastermanagmentapp.feature_disastermanagement.domain.model.DisasterEvent
 
 @Composable
-fun EventCard(event: DisasterEvent) {
+fun DisasterScreenEventCard(event: DisasterEvent) {
     Card(
         modifier = Modifier
             .fillMaxWidth()

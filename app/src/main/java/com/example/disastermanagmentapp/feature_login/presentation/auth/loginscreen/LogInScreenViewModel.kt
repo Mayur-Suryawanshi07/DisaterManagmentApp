@@ -35,11 +35,11 @@ class LogInScreenViewModel : ViewModel() {
         _state.update {
             LoginUiState.Loading
         }
-
         if (email.isEmpty() || password.isEmpty()) {
             _state.update {
                 LoginUiState.Error("Email and Password Cannot be empty")
             }
+            return
         }
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
@@ -62,7 +62,9 @@ class LogInScreenViewModel : ViewModel() {
 
     fun signOut() {
         auth.signOut()
-
+        _state.update {
+            LoginUiState.Unauthorized
+        }
     }
 
 
