@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.example.disastermanagmentapp.core.navigation.Graphs
 import com.example.disastermanagmentapp.core.navigation.Routes
 import com.example.disastermanagmentapp.feature_disastermanagement.presentation.component.MyBottomNavBar
 import com.example.disastermanagmentapp.feature_disastermanagement.presentation.component.MyTopAppBar
@@ -32,7 +33,12 @@ fun ProfileScreen(
     LaunchedEffect(state.value) {
         when (val s = state.value) {
             is LoginUiState.Unauthorized -> {
-                navController.navigate(Routes.Login)
+                navController.navigate(Graphs.Auth) {
+                    popUpTo(0) { inclusive = true }
+                    launchSingleTop = true
+                    restoreState = false
+                }
+
             }
             else -> Unit
         }

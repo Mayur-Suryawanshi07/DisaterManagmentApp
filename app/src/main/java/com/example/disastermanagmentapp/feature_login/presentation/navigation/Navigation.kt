@@ -14,10 +14,10 @@ import com.example.disastermanagmentapp.feature_login.presentation.auth.signupsc
 fun NavGraphBuilder.authNavScreen( navController: NavHostController) {
     navigation<Graphs.Auth>(startDestination = Routes.Login){
         composable<Routes.Login> {
-            LogInScreen(navigation = navController)
+            LogInScreen(navController = navController)
         }
         composable<Routes.Signup> {
-            SignUpScreen(navigation = navController)
+            SignUpScreen(navController = navController)
         }
 
     }

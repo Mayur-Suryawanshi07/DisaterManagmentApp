@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Approval
 import androidx.compose.material.icons.filled.Man
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material3.Button
@@ -32,22 +31,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalGraphicsContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.disastermanagmentapp.R
+import com.example.disastermanagmentapp.core.navigation.Graphs
 import com.example.disastermanagmentapp.core.navigation.Routes
 
 
 @Composable
 fun LogInScreen(
-    modifier: Modifier = Modifier,
-    navigation : NavHostController
+    navController : NavHostController
 ) {
     val viewModel = viewModel<LogInScreenViewModel>()
     val state = viewModel.state.collectAsState()
@@ -59,7 +55,11 @@ fun LogInScreen(
     LaunchedEffect(state.value) {
         when (val s = state.value) {
             is LoginUiState.Authorized -> {
-                navigation.navigate(Routes.Home)
+                navController.navigate(Graphs.Main) {
+                    popUpTo(Graphs.Auth) { inclusive = true } // clear all auth screens
+                    launchSingleTop = true
+                    restoreState = true
+                }
             }
             is LoginUiState.Error -> {
                 Toast.makeText(context, s.message, Toast.LENGTH_SHORT).show()
@@ -67,8 +67,6 @@ fun LogInScreen(
             else -> Unit
         }
     }
-
-
 
     Box(
         modifier = Modifier
@@ -126,7 +124,6 @@ fun LogInScreen(
             Button(
                 onClick = {
                     viewModel.login(email, password)
-
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {
@@ -166,7 +163,7 @@ fun LogInScreen(
                     fontSize = 16.sp,
                     modifier = Modifier
                         .clickable {
-                            navigation.navigate(Routes.Signup)
+                            navController.navigate(Routes.Signup)
                         }
                 )
             }
@@ -175,7 +172,7 @@ fun LogInScreen(
 
             OutlinedButton(
                 onClick = {
-                    navigation.navigate(Routes.Home)
+                    navController.navigate(Routes.Home)
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {

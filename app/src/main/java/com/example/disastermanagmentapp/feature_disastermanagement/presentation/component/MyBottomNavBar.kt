@@ -12,63 +12,69 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
+import com.example.disastermanagmentapp.core.navigation.Graphs
 import com.example.disastermanagmentapp.core.navigation.Routes
 
 @Composable
 fun MyBottomNavBar(
     navController: NavHostController,
+    items: List<NavigationBottomTheme> = defaultBottomNavItems()
 ) {
-    var selectedBottomItems by rememberSaveable {
-        mutableIntStateOf(0)
-    }
-    val items = listOf(
-        NavigationBottomTheme(
-            Icons.Filled.Home,
-            Icons.Outlined.Home,
-            route = Routes.Home
-        ),
-        NavigationBottomTheme(
-            Icons.Filled.ContactEmergency,
-            Icons.Outlined.ContactEmergency,
-            route = Routes.Contact
-        ),
-        NavigationBottomTheme(
-            Icons.Filled.AccountCircle,
-            Icons.Outlined.AccountCircle,
-            route = Routes.Profile
-        ),
-    )
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
 
     NavigationBar {
-        items.forEachIndexed { index, navigationBottomTheme ->
+        items.forEach { item ->
+            val selected = currentDestination?.hierarchy?.any { it.route == item.route::class.qualifiedName } == true
+
             NavigationBarItem(
-                selected = selectedBottomItems == index,
+                selected = selected,
                 onClick = {
-                    selectedBottomItems = index
-                    navController.navigate(navigationBottomTheme.route) {
-                        popUpTo(navController.graph.startDestinationId)
+                    navController.navigate(item.route::class.qualifiedName!!) {
+                        popUpTo(Graphs.Main) {
+                            saveState = true
+                        }
                         launchSingleTop = true
+                        restoreState = true
+
+
                     }
                 },
                 icon = {
                     Icon(
-                        imageVector = if (selectedBottomItems == index) navigationBottomTheme.SelectedItems else navigationBottomTheme.UnSelectedItems,
-                        contentDescription = "Bottom Navigation Icon"
+                        imageVector = if (selected) item.SelectedItems else item.UnSelectedItems,
+                        contentDescription = item.route::class.simpleName
                     )
-                },
+                }
             )
         }
     }
 }
 
-
 data class NavigationBottomTheme(
     val SelectedItems: ImageVector,
     val UnSelectedItems: ImageVector,
     val route: Routes
+)
+
+fun defaultBottomNavItems() = listOf(
+    NavigationBottomTheme(
+        Icons.Filled.Home,
+        Icons.Outlined.Home,
+        route = Routes.Home
+    ),
+    NavigationBottomTheme(
+        Icons.Filled.ContactEmergency,
+        Icons.Outlined.ContactEmergency,
+        route = Routes.Contact
+    ),
+    NavigationBottomTheme(
+        Icons.Filled.AccountCircle,
+        Icons.Outlined.AccountCircle,
+        route = Routes.Profile
+    )
 )

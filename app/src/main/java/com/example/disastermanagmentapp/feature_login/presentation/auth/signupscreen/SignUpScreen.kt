@@ -31,11 +31,12 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.disastermanagmentapp.R
+import com.example.disastermanagmentapp.core.navigation.Graphs
 import com.example.disastermanagmentapp.core.navigation.Routes
 import com.example.disastermanagmentapp.feature_login.presentation.auth.loginscreen.LoginUiState
 
 @Composable
-fun SignUpScreen(modifier: Modifier = Modifier,navigation: NavHostController) {
+fun SignUpScreen(navController: NavHostController) {
 
     val context = LocalContext.current
     val viewModel= viewModel<SignUpViewModel>()
@@ -48,7 +49,11 @@ fun SignUpScreen(modifier: Modifier = Modifier,navigation: NavHostController) {
     LaunchedEffect(state.value) {
         when (val s = state.value) {
             is LoginUiState.Authorized -> {
-                navigation.navigate(Routes.Home)
+                navController.navigate(Graphs.Main) {
+                    popUpTo(Graphs.Auth) { inclusive = true }
+                    launchSingleTop = true
+                    restoreState = true
+                }
             }
             is LoginUiState.Error -> {
                 Toast.makeText(context, s.message, Toast.LENGTH_SHORT).show()
@@ -152,7 +157,7 @@ fun SignUpScreen(modifier: Modifier = Modifier,navigation: NavHostController) {
                     fontSize = 16.sp,
                     modifier = Modifier
                         .clickable {
-                            navigation.popBackStack()
+                            navController.popBackStack()
                         }
                 )
             }
