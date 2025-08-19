@@ -13,11 +13,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Man
+import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
-import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -32,6 +33,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -43,14 +46,15 @@ import com.example.disastermanagmentapp.core.navigation.Routes
 
 @Composable
 fun LogInScreen(
-    navController : NavHostController
+    navController: NavHostController
 ) {
     val viewModel = viewModel<LogInScreenViewModel>()
     val state = viewModel.state.collectAsState()
-    val context= LocalContext.current
+    val context = LocalContext.current
 
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var passwordVisible by remember { mutableStateOf(false) }
 
     LaunchedEffect(state.value) {
         when (val s = state.value) {
@@ -61,12 +65,15 @@ fun LogInScreen(
                     restoreState = true
                 }
             }
+
             is LoginUiState.Error -> {
                 Toast.makeText(context, s.message, Toast.LENGTH_SHORT).show()
             }
+
             else -> Unit
         }
     }
+
 
     Box(
         modifier = Modifier
@@ -97,11 +104,12 @@ fun LogInScreen(
                     email = it
                 },
                 trailingIcon = {
-                    Icon(imageVector = Icons.Default.Man, contentDescription = "")
+                    Icon(imageVector = Icons.Default.Email, contentDescription = "Email Icon")
                 },
                 label = {
                     Text(text = "Username or Email")
-                }
+                },
+                modifier = Modifier.fillMaxWidth()
             )
 
             Spacer(Modifier.height(6.dp))
@@ -111,19 +119,37 @@ fun LogInScreen(
                 onValueChange = {
                     password = it
                 },
-                trailingIcon = {
-                    Icon(imageVector = Icons.Default.Visibility, contentDescription = null)
-                },
                 label = {
                     Text(text = "Password")
-                }
+                },
+                trailingIcon = {
+                    val image = if (passwordVisible) {
+                        Icons.Filled.Visibility
+                    } else Icons.Filled.VisibilityOff
+
+                    val description = if (passwordVisible) "Hide password" else "Show password"
+
+                    IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                        Icon(imageVector = image, description)
+                    }
+                },
+                visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+                modifier = Modifier.fillMaxWidth()
             )
 
-            Spacer(Modifier.height(6.dp))
+            Spacer(Modifier.height(16.dp))
 
             Button(
                 onClick = {
-                    viewModel.login(email, password)
+                    if (password.length < 6) {
+                        Toast.makeText(
+                            context,
+                            "Password must be at least 6 characters long",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        viewModel.login(email, password)
+                    }
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {
@@ -170,15 +196,14 @@ fun LogInScreen(
 
             Spacer(Modifier.height(6.dp))
 
-            OutlinedButton(
-                onClick = {
-                    navController.navigate(Routes.Home)
-                },
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text(text = "Continue as guest")
-            }
-
+//            OutlinedButton(
+//                onClick = {
+//                    navController.navigate(Routes.Home)
+//                },
+//                modifier = Modifier.fillMaxWidth()
+//            ) {
+//                Text(text = "Continue as guest")
+//            }
 
         }
 

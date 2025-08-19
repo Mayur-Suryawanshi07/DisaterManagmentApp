@@ -1,8 +1,13 @@
 package com.example.disastermanagmentapp.feature_disastermanagement.presentation.screens.disaster_screen
 
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -34,20 +39,37 @@ fun DisasterScreen(
         }
 
     ) {
+
+
         Column(
             modifier = modifier.fillMaxSize().padding(it),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Search Bar
-            OutlinedTextField(
-                value = uiState.searchQuery,
-                onValueChange = viewModel::searchDisasterEvents,
+
+            val items = listOf("Wildfires", "Sea and Lake Ice", "Volcanoes","Earthquake")
+            LazyRow(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp),
-                placeholder = { Text("Search disaster events...") },
-                singleLine = true
-            )
+                    .padding(horizontal = 16.dp, vertical = 8.dp), // Padding for the whole row
+                horizontalArrangement = Arrangement.spacedBy(8.dp) // Space between each Box item
+            ) {
+                items(items) { categoryName ->
+                    Box(
+                        modifier = Modifier
+                            .clickable{
+                                viewModel.searchDisasterEvents(categoryName)
+                            }
+                            .border(
+                                width = 1.dp,
+                                color = MaterialTheme.colorScheme.primary,
+                                shape = RoundedCornerShape(8.dp)
+                            )
+                            .padding(horizontal = 12.dp, vertical = 8.dp) // Padding inside the Box
+                    ) {
+                        Text(text = categoryName)
+                    }
+                }
+            }
 
             // Content based on UI state
             when (uiState.uiState) {
