@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
-import com.example.disastermanagmentapp.feature_disastermanagement.domain.model.DisasterEvent
+import com.example.disastermanagmentapp.feature_disastermanagement.domain.model.DisasterAlert
 import com.example.disastermanagmentapp.feature_disastermanagement.presentation.component.MyBottomNavBar
 import com.example.disastermanagmentapp.feature_disastermanagement.presentation.component.MyTopAppBar
 
@@ -46,7 +46,7 @@ fun DisasterScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            val items = listOf("Wildfires", "Sea and Lake Ice", "Volcanoes","Earthquake")
+            val items = listOf("All","Weather Alert", "General Alert", "Flood Alert")
             LazyRow(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -177,7 +177,7 @@ private fun ErrorState(
 
 @Composable
 private fun DisasterEventList(
-    events: List<DisasterEvent>,
+    events: List<DisasterAlert>,
     onRefresh: () -> Unit,
     isRefreshing: Boolean
 ) {

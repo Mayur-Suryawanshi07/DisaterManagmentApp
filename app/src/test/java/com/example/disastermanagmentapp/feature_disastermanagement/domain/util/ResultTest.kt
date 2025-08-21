@@ -1,5 +1,6 @@
 package com.example.disastermanagmentapp.feature_disastermanagement.domain.util
 
+import com.example.disastermanagmentapp.feature_eonet_api.domain.util.Result
 import org.junit.Assert.*
 import org.junit.Test
 

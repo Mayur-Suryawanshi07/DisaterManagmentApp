@@ -1,10 +1,10 @@
 package com.example.disastermanagmentapp.feature_disastermanagement.presentation.screens.disaster_screen
 
-import com.example.disastermanagmentapp.feature_disastermanagement.domain.model.DisasterEvent
+import com.example.disastermanagmentapp.feature_disastermanagement.domain.model.DisasterAlert
 
 sealed class DisasterScreenUiState {
     object Loading : DisasterScreenUiState()
-    data class Success(val events: List<DisasterEvent>) : DisasterScreenUiState()
+    data class Success(val events: List<DisasterAlert>) : DisasterScreenUiState()
     data class Error(val message: String) : DisasterScreenUiState()
     object Empty : DisasterScreenUiState()
 }

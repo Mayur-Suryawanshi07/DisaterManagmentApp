@@ -14,10 +14,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.disastermanagmentapp.feature_disastermanagement.domain.model.DisasterEvent
+import com.example.disastermanagmentapp.feature_disastermanagement.domain.model.DisasterAlert
 
 @Composable
-fun DisasterScreenEventCard(event: DisasterEvent) {
+fun DisasterScreenEventCard(event: DisasterAlert) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -32,20 +32,20 @@ fun DisasterScreenEventCard(event: DisasterEvent) {
                 Text(text = "Category:", style = MaterialTheme.typography.bodyMedium)
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    text = event.categories.joinToString { it.title },
+                    text = event.category.toString(),
                     style = MaterialTheme.typography.bodyMedium
                 )
             }
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = "Date:  ${event.geometries.firstOrNull()?.date?.substringBefore("T") ?: "N/A"}",
+                text = "Date:  ${event.pubDate}",
                 style = MaterialTheme.typography.bodySmall
             )
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = "Time:  ${event.geometries.firstOrNull()?.date?.substringBefore("T") ?: "N/A"}",
-                style = MaterialTheme.typography.bodySmall
-            )
+//            Spacer(modifier = Modifier.height(4.dp))
+//            Text(
+//                text = "Time:  ${event.geometries.firstOrNull()?.date?.substringBefore("T") ?: "N/A"}",
+//                style = MaterialTheme.typography.bodySmall
+//            )
         }
     }
 }

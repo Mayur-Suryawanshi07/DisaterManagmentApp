@@ -1,11 +1,13 @@
 package com.example.disastermanagmentapp.feature_disastermanagement.data.mapper
 
-import com.example.disastermanagmentapp.feature_disastermanagement.data.remote.model.DisasterCategoryDto
-import com.example.disastermanagmentapp.feature_disastermanagement.data.remote.model.DisasterEventDto
-import com.example.disastermanagmentapp.feature_disastermanagement.data.remote.model.DisasterGeometryDto
-import com.example.disastermanagmentapp.feature_disastermanagement.domain.model.DisasterCategory
-import com.example.disastermanagmentapp.feature_disastermanagement.domain.model.DisasterEvent
-import com.example.disastermanagmentapp.feature_disastermanagement.domain.model.DisasterGeometry
+import com.example.disastermanagmentapp.feature_eonet_api.data.mapper.toDomain
+import com.example.disastermanagmentapp.feature_eonet_api.data.mapper.toDto
+import com.example.disastermanagmentapp.feature_eonet_api.data.remote.model.DisasterCategoryDto
+import com.example.disastermanagmentapp.feature_eonet_api.data.remote.model.DisasterEventDto
+import com.example.disastermanagmentapp.feature_eonet_api.data.remote.model.DisasterGeometryDto
+import com.example.disastermanagmentapp.feature_eonet_api.domain.model.DisasterCategory
+import com.example.disastermanagmentapp.feature_eonet_api.domain.model.DisasterEvent
+import com.example.disastermanagmentapp.feature_eonet_api.domain.model.DisasterGeometry
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

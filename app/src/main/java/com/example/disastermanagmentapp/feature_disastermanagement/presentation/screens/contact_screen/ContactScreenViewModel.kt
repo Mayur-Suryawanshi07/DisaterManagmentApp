@@ -3,6 +3,7 @@ package com.example.disastermanagmentapp.feature_disastermanagement.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.disastermanagmentapp.R
+import com.example.disastermanagmentapp.feature_disastermanagement.domain.use_cases.SachetUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -12,7 +13,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ContactScreenViewModel @Inject constructor() : ViewModel() {
+class ContactScreenViewModel @Inject constructor(
+    private val SatchUseCase: SachetUseCase
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow(ContactScreenState())
     val uiState: StateFlow<ContactScreenState> = _uiState.asStateFlow()

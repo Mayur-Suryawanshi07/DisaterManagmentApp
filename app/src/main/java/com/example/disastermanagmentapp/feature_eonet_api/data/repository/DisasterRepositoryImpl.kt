@@ -1,9 +1,9 @@
-package com.example.disastermanagmentapp.feature_disastermanagement.data.repository
+package com.example.disastermanagmentapp.feature_eonet_api.data.repository
 
-import com.example.disastermanagmentapp.feature_disastermanagement.data.mapper.toDomain
-import com.example.disastermanagmentapp.feature_disastermanagement.data.remote.api.DisasterApiService
-import com.example.disastermanagmentapp.feature_disastermanagement.domain.model.DisasterEvent
-import com.example.disastermanagmentapp.feature_disastermanagement.domain.repository.DisasterRepository
+import com.example.disastermanagmentapp.feature_eonet_api.data.mapper.toDomain
+import com.example.disastermanagmentapp.feature_eonet_api.data.remote.api.DisasterApiService
+import com.example.disastermanagmentapp.feature_eonet_api.domain.model.DisasterEvent
+import com.example.disastermanagmentapp.feature_eonet_api.domain.repository.DisasterRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject

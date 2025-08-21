@@ -1,4 +1,4 @@
-package com.example.disastermanagmentapp.feature_disastermanagement.domain.util
+package com.example.disastermanagmentapp.feature_eonet_api.domain.util
 
 sealed class Result<out T> {
     data class Success<T>(val data: T) : Result<T>()

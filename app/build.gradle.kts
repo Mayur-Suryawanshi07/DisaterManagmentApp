@@ -7,7 +7,7 @@ plugins {
     id("com.google.devtools.ksp")
     alias(libs.plugins.google.gms.google.services)
     id("com.google.dagger.hilt.android")
-    // Using KSP for all annotation processing
+    id("kotlin-kapt")
 }
 
 android {
@@ -67,7 +67,6 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.litert.support.api)
     implementation(libs.androidx.lifecycle.viewmodel.android)
-    implementation(libs.material3)
     implementation(libs.firebase.auth)
     implementation(libs.androidx.room.ktx)
     testImplementation(libs.junit)
@@ -117,16 +116,19 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
 
     // Hilt Dependency Injection with KSP
-    implementation("com.google.dagger:hilt-android:2.54")
-    ksp("com.google.dagger:hilt-android-compiler:2.54")
-    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+    implementation(libs.hilt.android.v254)
+    ksp(libs.hilt.android.compiler.v254)
+    implementation(libs.hilt.navigation.compose)
     
     // Lifecycle and Compose
-    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.2")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+    implementation(libs.androidx.lifecycle.runtime.compose.v262)
+    implementation(libs.androidx.lifecycle.viewmodel.compose.v262)
     
     // Testing Dependencies
-    testImplementation("org.mockito:mockito-core:5.5.0")
-    testImplementation("org.mockito:mockito-kotlin:5.0.0")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0")
+    testImplementation(libs.mockito.core.v5190)
+    testImplementation(libs.mockito.mockito.kotlin)
+    testImplementation(libs.kotlinx.coroutines.test.v1102)
+
+    implementation(libs.jsoup)
+
 }

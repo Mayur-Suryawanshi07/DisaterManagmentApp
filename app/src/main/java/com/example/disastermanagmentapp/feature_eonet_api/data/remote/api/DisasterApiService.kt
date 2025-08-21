@@ -1,6 +1,6 @@
-package com.example.disastermanagmentapp.feature_disastermanagement.data.remote.api
+package com.example.disastermanagmentapp.feature_eonet_api.data.remote.api
 
-import com.example.disastermanagmentapp.feature_disastermanagement.data.remote.model.DisasterEventDto
+import com.example.disastermanagmentapp.feature_eonet_api.data.remote.model.DisasterEventDto
 import retrofit2.http.GET
 import retrofit2.http.Query
 

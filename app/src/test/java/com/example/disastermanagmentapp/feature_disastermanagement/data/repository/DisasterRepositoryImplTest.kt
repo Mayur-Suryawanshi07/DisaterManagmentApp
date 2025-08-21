@@ -1,9 +1,8 @@
 package com.example.disastermanagmentapp.feature_disastermanagement.data.repository
 
-import com.example.disastermanagmentapp.feature_disastermanagement.data.mapper.toDomain
-import com.example.disastermanagmentapp.feature_disastermanagement.data.remote.api.DisasterApiService
-import com.example.disastermanagmentapp.feature_disastermanagement.data.remote.model.DisasterEventDto
-import com.example.disastermanagmentapp.feature_disastermanagement.domain.model.DisasterEvent
+import com.example.disastermanagmentapp.feature_eonet_api.data.remote.api.DisasterApiService
+import com.example.disastermanagmentapp.feature_eonet_api.data.remote.model.DisasterEventDto
+import com.example.disastermanagmentapp.feature_eonet_api.data.repository.DisasterRepositoryImpl
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals

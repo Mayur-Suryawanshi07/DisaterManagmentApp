@@ -1,4 +1,4 @@
-package com.example.disastermanagmentapp.feature_disastermanagement.domain.model
+package com.example.disastermanagmentapp.feature_eonet_api.domain.model
 
 data class DisasterEvent(
     val id: String,

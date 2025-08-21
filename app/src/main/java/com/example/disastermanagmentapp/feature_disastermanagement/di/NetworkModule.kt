@@ -1,19 +1,17 @@
 package com.example.disastermanagmentapp.feature_disastermanagement.di
 
-import com.example.disastermanagmentapp.feature_disastermanagement.data.remote.api.DisasterApiService
-import com.example.disastermanagmentapp.feature_disastermanagement.data.repository.DisasterRepositoryImpl
-import com.example.disastermanagmentapp.feature_disastermanagement.domain.repository.DisasterRepository
-import com.example.disastermanagmentapp.feature_disastermanagement.domain.use_cases.DisasterUseCase
-import com.example.disastermanagmentapp.feature_disastermanagement.domain.use_cases.GetDisasterEventByIdUseCase
-import com.example.disastermanagmentapp.feature_disastermanagement.domain.use_cases.GetDisasterEventsUseCase
-import com.example.disastermanagmentapp.feature_disastermanagement.domain.use_cases.SearchDisasterEventsUseCase
+import com.example.disastermanagmentapp.feature_disastermanagement.data.remote.api.SachetApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import org.simpleframework.xml.convert.AnnotationStrategy
+import org.simpleframework.xml.core.Persister
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.simplexml.SimpleXmlConverterFactory
 import javax.inject.Singleton
+
+//https://sachet.ndma.gov.in/cap_public_website/rss/rss_india.xml
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -21,32 +19,17 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(): Retrofit {
+    fun provideSachetRetrofit(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://eonet.gsfc.nasa.gov/api/v2.1/") // NASA EONET API v2.1
-            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl("https://sachet.ndma.gov.in/")
+            .addConverterFactory(SimpleXmlConverterFactory.createNonStrict(Persister(AnnotationStrategy())))
             .build()
     }
 
     @Provides
     @Singleton
-    fun provideDisasterApiService(retrofit: Retrofit): DisasterApiService {
-        return retrofit.create(DisasterApiService::class.java)
+    fun provideSachetApiService(retrofit: Retrofit): SachetApiService {
+        return retrofit.create(SachetApiService::class.java)
     }
 
-    @Provides
-    @Singleton
-    fun provideDisasterRepository(impl: DisasterRepositoryImpl): DisasterRepository {
-        return impl
-    }
-
-    @Provides
-    @Singleton
-    fun provideUseCases(repository: DisasterRepository) : DisasterUseCase{
-        return DisasterUseCase(
-            getDisasterUseCase = GetDisasterEventsUseCase(repository),
-            getEventByID = GetDisasterEventByIdUseCase(repository),
-            searchDisaster = SearchDisasterEventsUseCase(repository)
-        )
-    }
 }

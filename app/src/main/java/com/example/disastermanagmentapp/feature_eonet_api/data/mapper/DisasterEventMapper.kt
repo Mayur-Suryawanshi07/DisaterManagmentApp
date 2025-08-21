@@ -1,11 +1,11 @@
-package com.example.disastermanagmentapp.feature_disastermanagement.data.mapper
+package com.example.disastermanagmentapp.feature_eonet_api.data.mapper
 
-import com.example.disastermanagmentapp.feature_disastermanagement.data.remote.model.DisasterCategoryDto
-import com.example.disastermanagmentapp.feature_disastermanagement.data.remote.model.DisasterEventDto
-import com.example.disastermanagmentapp.feature_disastermanagement.data.remote.model.DisasterGeometryDto
-import com.example.disastermanagmentapp.feature_disastermanagement.domain.model.DisasterCategory
-import com.example.disastermanagmentapp.feature_disastermanagement.domain.model.DisasterEvent
-import com.example.disastermanagmentapp.feature_disastermanagement.domain.model.DisasterGeometry
+import com.example.disastermanagmentapp.feature_eonet_api.data.remote.model.DisasterCategoryDto
+import com.example.disastermanagmentapp.feature_eonet_api.data.remote.model.DisasterEventDto
+import com.example.disastermanagmentapp.feature_eonet_api.data.remote.model.DisasterGeometryDto
+import com.example.disastermanagmentapp.feature_eonet_api.domain.model.DisasterCategory
+import com.example.disastermanagmentapp.feature_eonet_api.domain.model.DisasterEvent
+import com.example.disastermanagmentapp.feature_eonet_api.domain.model.DisasterGeometry
 
 fun DisasterEventDto.toDomain(): DisasterEvent {
     return DisasterEvent(

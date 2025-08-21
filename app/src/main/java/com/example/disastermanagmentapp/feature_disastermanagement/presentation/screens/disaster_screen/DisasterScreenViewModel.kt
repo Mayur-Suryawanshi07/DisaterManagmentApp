@@ -2,7 +2,9 @@ package com.example.disastermanagmentapp.feature_disastermanagement.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.disastermanagmentapp.feature_disastermanagement.domain.use_cases.DisasterUseCase
+// Change these imports:
+import com.example.disastermanagmentapp.feature_disastermanagement.domain.use_cases.GetSachetUseCase // Corrected import
+import com.example.disastermanagmentapp.feature_disastermanagement.domain.use_cases.SearchSachetUseCase // Corrected import
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,7 +15,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DisasterScreenViewModel @Inject constructor(
-    private val useCases: DisasterUseCase
+    // Inject specific Sachet use cases
+    private val getSachetUseCase: GetSachetUseCase, // Changed
+    private val searchSachetUseCase: SearchSachetUseCase // Changed
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(DisasterScreenState())
@@ -25,20 +29,21 @@ class DisasterScreenViewModel @Inject constructor(
 
     fun loadDisasterEvents() {
         viewModelScope.launch {
-            _uiState.update { it.copy(uiState = DisasterScreenUiState.Loading) }
+            _uiState.update { it.copy(uiState = DisasterScreenUiState.Loading, isRefreshing = true) } // Indicate loading/refreshing
 
             try {
-                useCases.getDisasterUseCase().collect { events ->
+                // Use the injected GetSachetUseCase directly
+                getSachetUseCase().collect { events -> // Changed: directly invoke the use case
                     val newUiState = if (events.isEmpty()) {
                         DisasterScreenUiState.Empty
                     } else {
                         DisasterScreenUiState.Success(events)
                     }
-                    _uiState.update { it.copy(uiState = newUiState) }
+                    _uiState.update { it.copy(uiState = newUiState, isRefreshing = false) } // Stop refreshing
                 }
             } catch (e: Exception) {
                 _uiState.update {
-                    it.copy(uiState = DisasterScreenUiState.Error(e.message ?: "Unknown error occurred"))
+                    it.copy(uiState = DisasterScreenUiState.Error(e.message ?: "Unknown error occurred"), isRefreshing = false) // Stop refreshing
                 }
             }
         }
@@ -46,39 +51,54 @@ class DisasterScreenViewModel @Inject constructor(
 
     fun searchDisasterEvents(query: String) {
         if (query.isBlank()) {
-            loadDisasterEvents()
+            loadDisasterEvents() // If search query is blank, load all events
+            _uiState.update { it.copy(searchQuery = "") } // Clear search query in state
             return
         }
+         if (query.length < 2) { // Keep your validation
+            _uiState.update {
+                it.copy(uiState = DisasterScreenUiState.Error("Search query must be at least 2 characters"))
+            }
+            return
+        }
+
 
         viewModelScope.launch {
             _uiState.update {
                 it.copy(
                     searchQuery = query,
-                    uiState = DisasterScreenUiState.Loading
+                    uiState = DisasterScreenUiState.Loading,
+                    isRefreshing = true // Indicate loading/refreshing
                 )
             }
 
             try {
-                useCases.searchDisaster(query).collect { events ->
+                // Use the injected SearchSachetUseCase directly
+                searchSachetUseCase(query).collect { events -> // Changed: directly invoke the use case
                     val newUiState = if (events.isEmpty()) {
-                        DisasterScreenUiState.Empty
+                        // Consider a different state for "no search results" vs "general empty"
+                        DisasterScreenUiState.Success(emptyList()) // Or a specific NoSearchResults state
                     } else {
                         DisasterScreenUiState.Success(events)
                     }
-                    _uiState.update { it.copy(uiState = newUiState) }
+                    _uiState.update { it.copy(uiState = newUiState, isRefreshing = false) } // Stop refreshing
                 }
-            } catch (e: Exception) {
+            } catch (e: IllegalArgumentException) { // Catch specific exception from use case
+                 _uiState.update {
+                    it.copy(uiState = DisasterScreenUiState.Error(e.message ?: "Invalid search query"), isRefreshing = false) // Stop refreshing
+                }
+            }
+            catch (e: Exception) {
                 _uiState.update {
-                    it.copy(uiState = DisasterScreenUiState.Error(e.message ?: "Search failed"))
+                    it.copy(uiState = DisasterScreenUiState.Error(e.message ?: "Search failed"), isRefreshing = false) // Stop refreshing
                 }
             }
         }
     }
 
     fun refreshEvents() {
-        _uiState.update { it.copy(isRefreshing = true) }
-        loadDisasterEvents()
-        _uiState.update { it.copy(isRefreshing = false) }
+        _uiState.update { it.copy(searchQuery = "") } // Clear search query on refresh
+        loadDisasterEvents() // This will set isRefreshing = true at the start and false at the end
     }
 
     fun clearSearch() {
@@ -88,10 +108,11 @@ class DisasterScreenViewModel @Inject constructor(
 
     fun selectCategory(categoryId: String?) {
         _uiState.update { it.copy(selectedCategory = categoryId) }
-        // TODO: Implement category filtering
+        // TODO: Implement category filtering, this will likely involve another use case and data loading
     }
 
     fun retry() {
+         _uiState.update { it.copy(searchQuery = "") } // Clear search query on retry as well
         loadDisasterEvents()
     }
 }

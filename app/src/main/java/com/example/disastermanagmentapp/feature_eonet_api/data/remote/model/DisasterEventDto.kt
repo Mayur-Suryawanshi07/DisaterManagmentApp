@@ -1,4 +1,4 @@
-package com.example.disastermanagmentapp.feature_disastermanagement.data.remote.model
+package com.example.disastermanagmentapp.feature_eonet_api.data.remote.model
 
 import com.google.gson.annotations.SerializedName
 
