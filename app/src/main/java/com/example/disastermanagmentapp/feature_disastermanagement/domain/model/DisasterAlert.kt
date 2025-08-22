@@ -6,7 +6,5 @@ data class DisasterAlert(
     val link: String,
     val description: String,
     val pubDate: String,
-    val date :String,
-    val time :String,
     val category: String? = null
 )

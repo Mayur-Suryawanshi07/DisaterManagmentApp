@@ -3,7 +3,7 @@ package com.example.disastermanagmentapp.feature_disastermanagement.domain.repos
 import com.example.disastermanagmentapp.feature_disastermanagement.domain.model.DisasterAlert
 import kotlinx.coroutines.flow.Flow
 
-interface DisasterRepository {
+interface SachetRepository {
     fun getDisasterEvents(): Flow<List<DisasterAlert>>
     suspend fun getDisasterByID(id: String): DisasterAlert?
     fun searchDisasterEvents(query: String): Flow<List<DisasterAlert>>

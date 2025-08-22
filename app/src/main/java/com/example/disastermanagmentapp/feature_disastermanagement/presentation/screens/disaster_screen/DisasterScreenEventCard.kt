@@ -1,6 +1,5 @@
 package com.example.disastermanagmentapp.feature_disastermanagement.presentation.screens.disaster_screen
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -39,17 +38,14 @@ fun DisasterScreenEventCard(event: DisasterAlert) {
             }
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = "Date:  ${event.date}",
+                text = "Date:  ${event.pubDate}",
                 style = MaterialTheme.typography.bodySmall
             )
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = "Time:  ${event.time ?: "N/A"}",
-                style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier.clickable{
-
-                }
-            )
+//            Spacer(modifier = Modifier.height(4.dp))
+//            Text(
+//                text = "Time:  ${event.geometries.firstOrNull()?.date?.substringBefore("T") ?: "N/A"}",
+//                style = MaterialTheme.typography.bodySmall
+//            )
         }
     }
 }

@@ -5,21 +5,17 @@ import com.example.disastermanagmentapp.feature_disastermanagement.domain.model.
 import java.text.SimpleDateFormat
 import java.util.*
 
-object DisasterMapper {
+object DisasterAlertMapper {
+
+    private val dateFormat = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz", Locale.ENGLISH)
 
     fun mapToDomain(item: Item): DisasterAlert {
-
-        val rawDate = item.pubDate
-        val (date,time)= formatDateTime(rawDate)
-
         return DisasterAlert(
             id = generateId(item),
             title = item.title?.trim() ?: "No Title",
             link = item.link ?: "",
-            description = item.description?:"NA",
+            description = cleanDescription(item.description ?: "No Description"),
             pubDate = item.pubDate ?: "",
-            date = date,
-            time = time,
             category = extractCategory(item.title)
         )
     }
@@ -32,6 +28,12 @@ object DisasterMapper {
         return item.link?.hashCode()?.toString() ?: item.title?.hashCode()?.toString() ?: UUID.randomUUID().toString()
     }
 
+    private fun cleanDescription(description: String): String {
+        return description
+            .replace(Regex("<[^>]*>"), "") // Remove HTML tags
+            .replace(Regex("&[a-zA-Z0-9#]+;"), " ") // Replace HTML entities with space
+            .trim()
+    }
 
     private fun extractCategory(title: String?): String? {
         if (title.isNullOrBlank()) return null
@@ -48,27 +50,13 @@ object DisasterMapper {
             titleLower.contains("earthquake") || titleLower.contains("tremor") -> "Earthquake"
 
             titleLower.contains("heat") || titleLower.contains("temperature") ||
-                titleLower.contains("hot") -> "Heat Wave"
+            titleLower.contains("hot") -> "Heat Wave"
 
             titleLower.contains("cyclone") || titleLower.contains("hurricane") -> "Cyclone"
 
             titleLower.contains("landslide") || titleLower.contains("mudslide") -> "Landslide"
 
             else -> "General Alert"
-        }
-    }
-
-    private fun formatDateTime(pubDate: String?): Pair<String, String> {
-        return try {
-            val inputFormat = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz", Locale.ENGLISH)
-            val date = inputFormat.parse(pubDate ?: "")
-
-            val dateFormat = SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH)
-            val timeFormat = SimpleDateFormat("HH:mm:ss", Locale.ENGLISH)
-
-            dateFormat.format(date!!) to timeFormat.format(date)
-        } catch (e: Exception) {
-            "N/A" to "N/A"
         }
     }
 }

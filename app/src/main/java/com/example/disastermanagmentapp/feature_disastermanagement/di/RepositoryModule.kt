@@ -1,6 +1,6 @@
 package com.example.disastermanagmentapp.feature_disastermanagement.di
 
-import com.example.disastermanagmentapp.feature_disastermanagement.data.repository.DisasterRepositoryImpl
+import com.example.disastermanagmentapp.feature_disastermanagement.data.repository.SachetRepositoryImpl
 import com.example.disastermanagmentapp.feature_disastermanagement.domain.repository.SachetRepository
 import dagger.Binds
 import dagger.Module
@@ -15,6 +15,6 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindSachetRepository(
-        disasterRepositoryImpl: DisasterRepositoryImpl
+        sachetRepositoryImpl: SachetRepositoryImpl
     ): SachetRepository
 }
