@@ -6,7 +6,7 @@ import org.simpleframework.xml.ElementList
 import org.simpleframework.xml.Root
 
 @Root(name = "rss", strict = false)
-data class RssFeed @JvmOverloads constructor(
+data class DisasterRssFeed @JvmOverloads constructor(
     @field:Element(name = "channel")
     var channel: Channel? = null
 )

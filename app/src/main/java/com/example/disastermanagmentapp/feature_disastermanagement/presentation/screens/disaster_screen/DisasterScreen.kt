@@ -46,7 +46,7 @@ fun DisasterScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            val items = listOf("All","Weather Alert", "General Alert", "Flood Alert")
+            val items = listOf("General Alert","Weather Alert", "Flood Alert", "Earthquake", "Heat Wave", "Cyclone", "Landslide")
             LazyRow(
                 modifier = Modifier
                     .fillMaxWidth()

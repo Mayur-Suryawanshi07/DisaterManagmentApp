@@ -1,18 +1,18 @@
 package com.example.disastermanagmentapp.feature_disastermanagement.data.repository
 
-import com.example.disastermanagmentapp.feature_disastermanagement.data.mapper.DisasterAlertMapper
+import com.example.disastermanagmentapp.feature_disastermanagement.data.mapper.DisasterMapper
 import com.example.disastermanagmentapp.feature_disastermanagement.data.remote.api.SachetApiService
 import com.example.disastermanagmentapp.feature_disastermanagement.domain.model.DisasterAlert
-import com.example.disastermanagmentapp.feature_disastermanagement.domain.repository.SachetRepository
+import com.example.disastermanagmentapp.feature_disastermanagement.domain.repository.DisasterRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
-class SachetRepositoryImpl @Inject constructor(
+class DisasterRepositoryImpl @Inject constructor(
     private val apiService: SachetApiService
-) : SachetRepository {
+) : DisasterRepository {
 
     private var cachedAlerts: List<DisasterAlert>? = null
 
@@ -78,15 +78,15 @@ class SachetRepositoryImpl @Inject constructor(
             val response = apiService.getRssFeed()
             if (response.isSuccessful) {
                 response.body()?.let { rssFeed ->
-                    DisasterAlertMapper.mapToDomainList(rssFeed.channel?.items).also {
+                    DisasterMapper.mapToDomainList(rssFeed.channel?.items).also {
                         cachedAlerts = it
                     }
                 } ?: emptyList()
             } else {
                 // Fallback to direct parsing if response parsing fails
                 try {
-                    val directResponse = apiService.getRssFeedDirect()
-                    DisasterAlertMapper.mapToDomainList(directResponse.channel?.items).also {
+                    val directResponse = apiService.getRssFeed()
+                    DisasterMapper.mapToDomainList(directResponse.channel?.items).also {
                         cachedAlerts = it
                     }
                 } catch (fallbackException: Exception) {
@@ -96,8 +96,8 @@ class SachetRepositoryImpl @Inject constructor(
         } catch (e: Exception) {
             // Fallback to direct parsing
             try {
-                val directResponse = apiService.getRssFeedDirect()
-                DisasterAlertMapper.mapToDomainList(directResponse.channel?.items).also {
+                val directResponse = apiService.getRssFeed()
+                DisasterMapper.mapToDomainList(directResponse.channel?.items).also {
                     cachedAlerts = it
                 }
             } catch (fallbackException: Exception) {
