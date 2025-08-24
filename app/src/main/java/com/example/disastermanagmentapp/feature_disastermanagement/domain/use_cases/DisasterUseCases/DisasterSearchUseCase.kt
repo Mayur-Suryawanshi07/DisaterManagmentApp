@@ -1,12 +1,12 @@
-package com.example.disastermanagmentapp.feature_disastermanagement.domain.use_cases
+package com.example.disastermanagmentapp.feature_disastermanagement.domain.use_cases.DisasterUseCases
 
 import com.example.disastermanagmentapp.feature_disastermanagement.domain.model.DisasterAlert
-import com.example.disastermanagmentapp.feature_disastermanagement.domain.repository.SachetRepository
+import com.example.disastermanagmentapp.feature_disastermanagement.domain.repository.DisasterRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class SearchSachetUseCase @Inject constructor(
-    private val repository: SachetRepository
+class DisasterSearchUseCase @Inject constructor(
+    private val repository: DisasterRepository
 ) {
     operator fun invoke(query: String): Flow<List<DisasterAlert>> {
         if (query.isEmpty()){

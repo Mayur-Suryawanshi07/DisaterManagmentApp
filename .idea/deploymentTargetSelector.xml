@@ -4,7 +4,7 @@
     <selectionStates>
       <SelectionState runConfigName="DisasterManagment">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2025-04-24T21:23:03.383777500Z">
+        <DropdownSelection timestamp="2025-08-24T20:24:27.160784Z">
           <Target type="DEFAULT_BOOT">
             <handle>
               <DeviceId pluginId="PhysicalDevice" identifier="serial=a179ddb7" />

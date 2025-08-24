@@ -1,9 +1,12 @@
 package com.example.disastermanagmentapp.feature_login.presentation.auth.signupscreen
 
+import android.R
 import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.ViewModel
 import com.example.disastermanagmentapp.feature_login.presentation.auth.loginscreen.LoginUiState
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.database
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -13,6 +16,8 @@ import kotlinx.coroutines.flow.update
 class SignUpViewModel : ViewModel() {
 
     private val auth = FirebaseAuth.getInstance()
+    val database = Firebase.database
+    val myRef = database.getReference("users")
 
     private val _state = MutableStateFlow<SignUpState>(SignUpState.Unauthenticated)
     val state: StateFlow<SignUpState> = _state.asStateFlow()
@@ -40,7 +45,7 @@ class SignUpViewModel : ViewModel() {
 
         if (email.isEmpty() || password.isEmpty()) {
             _state.update {
-                SignUpState.Error("Email and Password Cannot be empty")
+                SignUpState.Error("Email,Password and Username Cannot be empty")
             }
         }
         auth.createUserWithEmailAndPassword(email, password)
@@ -57,8 +62,17 @@ class SignUpViewModel : ViewModel() {
             }
     }
 
+    fun storeDataFireBase(username: String, email: String) {
+        val userId = auth.currentUser?.uid ?: return
+        val user = User(userId, username, email)
+        myRef.child(userId).setValue(user)
 
-
-
+    }
 }
+
+data class User(
+    val name: String,
+    val email: String,
+    val userId: String
+)
 

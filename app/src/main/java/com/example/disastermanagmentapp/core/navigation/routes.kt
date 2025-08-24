@@ -18,6 +18,9 @@ sealed interface Routes {
 
     @Serializable
     data object Profile : Routes
+
+    @Serializable
+    data class DisasterDetail(val disasterId: String) : Routes
 }
 
 @Serializable

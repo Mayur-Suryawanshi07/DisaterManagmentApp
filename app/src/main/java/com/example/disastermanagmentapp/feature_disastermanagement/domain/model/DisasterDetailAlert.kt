@@ -16,6 +16,7 @@ data class DisasterDetailAlert(
 )
 
 data class Info(
+    val language: String,
     val category: String,
     val event: String,
     val urgency: String,

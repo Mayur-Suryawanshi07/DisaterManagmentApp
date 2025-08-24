@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -34,6 +35,8 @@ import com.example.disastermanagmentapp.R
 import com.example.disastermanagmentapp.core.navigation.Graphs
 import com.example.disastermanagmentapp.core.navigation.Routes
 import com.example.disastermanagmentapp.feature_login.presentation.auth.loginscreen.LoginUiState
+import com.google.firebase.Firebase
+import com.google.firebase.database.database
 
 @Composable
 fun SignUpScreen(navController: NavHostController) {
@@ -42,18 +45,21 @@ fun SignUpScreen(navController: NavHostController) {
     val viewModel= viewModel<SignUpViewModel>()
     val state = viewModel.state.collectAsState()
 
+    var username by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var passWord by remember { mutableStateOf("") }
+
 
 
     LaunchedEffect(state.value) {
         when (val s = state.value) {
             is LoginUiState.Authorized -> {
-                navController.navigate(Graphs.Main) {
-                    popUpTo(Graphs.Auth) { inclusive = true }
+                navController.navigate(Routes.Login) {
+                    popUpTo(Routes.Login) { inclusive = true }
                     launchSingleTop = true
                     restoreState = true
                 }
+                viewModel.storeDataFireBase(username = username, email = email)
             }
             is LoginUiState.Error -> {
                 Toast.makeText(context, s.message, Toast.LENGTH_SHORT).show()
@@ -77,19 +83,23 @@ fun SignUpScreen(navController: NavHostController) {
                 contentDescription = "My image",
                 Modifier.size(150.dp)
             )
-            Spacer(Modifier.height(24.dp))
 
-//            OutlinedTextField(
-//                value = name,
-//                onValueChange = {
-//                    name = it
-//                },
-//                label = {
-//                    Text(text = "Full Name")
-//                }
-//            )
-//
-//            Spacer(Modifier.height(6.dp))
+
+            Text(text = "Signup",
+                fontSize = 24.sp,
+                color = MaterialTheme.colorScheme.primary)
+
+
+
+            OutlinedTextField(
+                value = username,
+                onValueChange = {
+                    username = it
+                },
+                label = {
+                    Text(text = "Username")
+                }
+            )
 
             OutlinedTextField(
                 value = email,

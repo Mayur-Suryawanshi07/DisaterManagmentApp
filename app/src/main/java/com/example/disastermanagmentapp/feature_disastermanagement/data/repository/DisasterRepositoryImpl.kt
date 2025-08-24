@@ -1,6 +1,7 @@
 package com.example.disastermanagmentapp.feature_disastermanagement.data.repository
 
 import com.example.disastermanagmentapp.feature_disastermanagement.data.mapper.DisasterMapper
+import com.example.disastermanagmentapp.feature_disastermanagement.data.mapper.DisasterMapper.toDomain
 import com.example.disastermanagmentapp.feature_disastermanagement.data.remote.api.SachetApiService
 import com.example.disastermanagmentapp.feature_disastermanagement.domain.model.DisasterAlert
 import com.example.disastermanagmentapp.feature_disastermanagement.domain.repository.DisasterRepository
@@ -77,32 +78,16 @@ class DisasterRepositoryImpl @Inject constructor(
         return try {
             val response = apiService.getRssFeed()
             if (response.isSuccessful) {
-                response.body()?.let { rssFeed ->
-                    DisasterMapper.mapToDomainList(rssFeed.channel?.items).also {
-                        cachedAlerts = it
-                    }
-                } ?: emptyList()
+                val dto = response.body() // <- should be DisasterDto
+                val alerts = dto?.toDomain() ?: emptyList()
+                cachedAlerts = alerts
+                alerts
             } else {
-                // Fallback to direct parsing if response parsing fails
-                try {
-                    val directResponse = apiService.getRssFeed()
-                    DisasterMapper.mapToDomainList(directResponse.channel?.items).also {
-                        cachedAlerts = it
-                    }
-                } catch (fallbackException: Exception) {
-                    cachedAlerts ?: emptyList()
-                }
-            }
-        } catch (e: Exception) {
-            // Fallback to direct parsing
-            try {
-                val directResponse = apiService.getRssFeed()
-                DisasterMapper.mapToDomainList(directResponse.channel?.items).also {
-                    cachedAlerts = it
-                }
-            } catch (fallbackException: Exception) {
                 cachedAlerts ?: emptyList()
             }
+        } catch (e: Exception) {
+            cachedAlerts ?: emptyList()
         }
     }
+
 }

@@ -6,8 +6,9 @@ import com.example.disastermanagmentapp.feature_disastermanagement.domain.model.
 import com.example.disastermanagmentapp.feature_disastermanagement.domain.repository.DisasterDetailRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 
-class DisasterDetailRepoImp (
+class DisasterDetailRepoImp @Inject constructor(
     private val api : SachetApiService
 ): DisasterDetailRepository {
     override suspend fun getDisasterDetail(identifier: String): DisasterDetailAlert? {

@@ -1,5 +1,6 @@
 package com.example.disastermanagmentapp.feature_login.presentation.auth.loginscreen
 
+import android.graphics.fonts.FontStyle
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -19,6 +20,7 @@ import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -95,6 +97,12 @@ fun LogInScreen(
                 Modifier.size(150.dp)
             )
 
+            Text(
+                text = "Login",
+                color = MaterialTheme.colorScheme.primary,
+                fontSize = 32.sp
+            )
+
             Spacer(Modifier.height(24.dp))
 
             //username
@@ -160,10 +168,7 @@ fun LogInScreen(
             Text(
                 text = "forget password?",
                 modifier = Modifier
-                    .align(Alignment.End)
-                    .clickable {
-
-                    },
+                    .align(Alignment.End),
                 color = Color.DarkGray
 
             )

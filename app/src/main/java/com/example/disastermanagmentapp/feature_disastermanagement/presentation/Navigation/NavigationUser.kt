@@ -8,6 +8,7 @@ import androidx.navigation.navigation
 import com.example.disastermanagmentapp.core.navigation.Graphs
 import com.example.disastermanagmentapp.core.navigation.Routes
 import com.example.disastermanagmentapp.feature_disastermanagement.presentation.screens.contact_screen.ContactScreen
+import com.example.disastermanagmentapp.feature_disastermanagement.presentation.screens.disaster_detail_screen.DisasterDetailScreen
 import com.example.disastermanagmentapp.feature_disastermanagement.presentation.screens.disaster_screen.DisasterScreen
 import com.example.disastermanagmentapp.feature_disastermanagement.presentation.screens.profilescreen.ProfileScreen
 
@@ -25,6 +26,10 @@ fun NavGraphBuilder.mainNavGraph(navController: NavHostController) {
 
         composable<Routes.Profile> {
             ProfileScreen(navController = navController)
+        }
+
+        composable<Routes.DisasterDetail> {
+            DisasterDetailScreen(navController = navController)
         }
 
     }

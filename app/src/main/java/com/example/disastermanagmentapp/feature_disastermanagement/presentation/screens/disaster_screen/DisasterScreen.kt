@@ -85,7 +85,8 @@ fun DisasterScreen(
                         DisasterEventList(
                             events = events,
                             onRefresh = viewModel::refreshEvents,
-                            isRefreshing = uiState.isRefreshing
+                            isRefreshing = uiState.isRefreshing,
+                            navController
                         )
                     }
                 }
@@ -179,7 +180,8 @@ private fun ErrorState(
 private fun DisasterEventList(
     events: List<DisasterAlert>,
     onRefresh: () -> Unit,
-    isRefreshing: Boolean
+    isRefreshing: Boolean,
+    navController: NavHostController
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
@@ -187,7 +189,7 @@ private fun DisasterEventList(
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(events) { event ->
-            DisasterScreenEventCard(event = event)
+            DisasterScreenEventCard(event = event, navController = navController)
         }
     }
 }

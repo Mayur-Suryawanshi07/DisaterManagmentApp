@@ -46,6 +46,9 @@ data class DisasterDetailDto @JvmOverloads constructor(
 @Root(name = "info",strict = false)
 data class InfoDto @JvmOverloads constructor(
 
+    @field:Element(name = "language", required = false)
+    var language: String? = null,
+
     @field:Element(name = "category", required = false)
     var category: String? = null,
 
