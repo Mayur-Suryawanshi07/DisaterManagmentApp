@@ -1,0 +1,35 @@
+[33m01a5763[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m HEAD@{0}: checkout: moving from master to master
+[33m01a5763[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m HEAD@{1}: branch: Reset to origin/master
+[33m01a5763[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m HEAD@{2}: checkout: moving from main to master
+[33mc47e28d[m[33m ([m[1;32mmain[m[33m)[m HEAD@{3}: checkout: moving from master to main
+[33m01a5763[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m HEAD@{4}: revert: Revert "Add : Adding DisasterScreen and its whole flow" missing some files
+[33m3790fd8[m HEAD@{5}: commit: Add : Adding DisasterScreen and its whole flow
+[33m46bb191[m[33m ([m[1;31morigin/main[m[33m)[m HEAD@{6}: commit: Add: Added Rss feed as a Disaster News
+[33mdf26024[m HEAD@{7}: commit: Add: Added Rss feed as a Disaster News
+[33m6184617[m HEAD@{8}: commit: feat: added lazyrow for filtering
+[33me33d87c[m HEAD@{9}: commit: update: backstack clear logic
+[33mf789635[m HEAD@{10}: commit: Add :Nested Navigation
+[33m4df69e6[m HEAD@{11}: commit: Add : Clean architecture modified
+[33meb541ab[m HEAD@{12}: commit: Add : Clean architecture modified
+[33mcb4ef01[m HEAD@{13}: commit: Add : Clean architecture
+[33mbd0359f[m HEAD@{14}: commit: feat : added login feature
+[33mc8b93f3[m HEAD@{15}: commit: feat : added login feature
+[33ma096c2f[m HEAD@{16}: checkout: moving from main to master
+[33mc47e28d[m[33m ([m[1;32mmain[m[33m)[m HEAD@{17}: checkout: moving from feature_update to main
+[33mc47e28d[m[33m ([m[1;32mmain[m[33m)[m HEAD@{18}: checkout: moving from master to feature_update
+[33ma096c2f[m HEAD@{19}: commit: feat : login/signup screens
+[33mbc0f0f0[m HEAD@{20}: commit: feat : login/signup screens
+[33mc47e28d[m[33m ([m[1;32mmain[m[33m)[m HEAD@{21}: checkout: moving from main to master
+[33mc47e28d[m[33m ([m[1;32mmain[m[33m)[m HEAD@{22}: commit: Files Added
+[33md511451[m HEAD@{23}: commit: Files Added
+[33m8b8a3c5[m HEAD@{24}: commit: Files Added
+[33m65aff0e[m HEAD@{25}: commit: added userInterface file
+[33m35f9b48[m HEAD@{26}: merge origin/main: Merge made by the 'ort' strategy.
+[33m2ea0c96[m HEAD@{27}: commit: created some pakages
+[33m3b60fe6[m HEAD@{28}: commit (merge): Merge remote-tracking branch 'origin/main'
+[33m5cc4262[m HEAD@{29}: commit (amend): created some pakages
+[33m678b59a[m HEAD@{30}: pull origin main --rebase (finish): returning to refs/heads/main
+[33m678b59a[m HEAD@{31}: pull origin main --rebase (pick): Added ALl Files
+[33m910e8eb[m HEAD@{32}: pull origin main --rebase (start): checkout 910e8eb4f94e6c5285cfbc6f3bc3005a76944e5b
+[33mcb94319[m HEAD@{33}: Branch: renamed refs/heads/master to refs/heads/main
+[33mcb94319[m HEAD@{35}: commit (initial): Added ALl Files
