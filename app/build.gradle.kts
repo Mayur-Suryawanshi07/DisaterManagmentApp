@@ -5,17 +5,17 @@ plugins {
     alias(libs.plugins.compose.compiler)
     id("kotlin-parcelize")
     id("com.google.devtools.ksp")
-    alias(libs.plugins.google.gms.google.services)
     id("com.google.dagger.hilt.android")
     id("kotlin-kapt")
+    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
-    namespace = "com.example.disastermanagmentapp"
+    namespace = "com.example.disasterpreparedness"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.disastermanagmentapp"
+        applicationId = "com.example.disasterpreparedness"
         minSdk = 26
         targetSdk = 36
         versionCode = 1
@@ -67,9 +67,11 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.litert.support.api)
     implementation(libs.androidx.lifecycle.viewmodel.android)
-    implementation(libs.firebase.auth)
+
     implementation(libs.androidx.room.ktx)
+    implementation(libs.firebase.auth)
     implementation(libs.firebase.database)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
