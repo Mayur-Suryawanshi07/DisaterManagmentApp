@@ -1,8 +1,8 @@
 package com.example.disasterpreparedness.feature_disasterpreparedness.presentation.viewmodel
 
-import com.example.disasterpreparedness.feature_eonet_api.domain.model.DisasterEvent
-import com.example.disasterpreparedness.feature_eonet_api.domain.use_cases.GetDisasterEventsUseCase
-import com.example.disasterpreparedness.feature_eonet_api.domain.use_cases.SearchDisasterEventsUseCase
+import com.example.disasterpreparedness.feature_test_eonet_api.domain.model.DisasterEvent
+import com.example.disasterpreparedness.feature_test_eonet_api.domain.use_cases.GetDisasterEventsUseCase
+import com.example.disasterpreparedness.feature_test_eonet_api.domain.use_cases.SearchDisasterEventsUseCase
 import com.example.disasterpreparedness.feature_disasterpreparedness.presentation.screens.disaster_screen.state.DisasterScreenUiState
 import com.example.disasterpreparedness.feature_disasterpreparedness.presentation.screens.disaster_screen.viewmodel.DisasterScreenViewModel
 import kotlinx.coroutines.Dispatchers

@@ -98,8 +98,8 @@ object DisasterMapper {
             titleLowerCase.containsAny(listOf("earthquake", "tremor")) -> "Earthquake"
             titleLowerCase.containsAny(listOf("heat", "temperature", "hot")) -> "Heat Wave"
             titleLowerCase.containsAny(listOf("cyclone", "hurricane")) -> "Cyclone"
-
             titleLowerCase.containsAny(listOf("landslide", "mudslide")) -> "Landslide"
+
             else -> "General Alert"
         }
     }

@@ -29,37 +29,23 @@ fun ContactScreen(
     navController: NavHostController
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    val state = rememberLazyGridState()
+    Column(
+        modifier = Modifier,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
 
-    Scaffold (modifier = Modifier
-        .fillMaxSize(),
-        topBar = {
-            MyTopAppBar("Contact List")
-        },
-        bottomBar = {
-            MyBottomNavBar(navController = navController)
-        }
-
-
-    ){
-        val state = rememberLazyGridState()
-        Column(
+        LazyVerticalGrid(
+            state = state,
+            columns = GridCells.Fixed(2),
+            verticalArrangement = Arrangement.spacedBy(6.dp),
+            horizontalArrangement = Arrangement.spacedBy(6.dp),
             modifier = Modifier
-                .padding(it),
-            horizontalAlignment = Alignment.CenterHorizontally,
+                .padding(horizontal = 16.dp)
+
         ) {
-
-            LazyVerticalGrid(
-                state=state,
-                columns = GridCells.Fixed(2),
-                verticalArrangement = Arrangement.spacedBy(6.dp),
-                horizontalArrangement = Arrangement.spacedBy(6.dp),
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-
-            ) {
-                items(uiState.emergencyContacts) { contact ->
-                    ContactScreenCard(contact.imageResId, contact.name)
-                }
+            items(uiState.emergencyContacts) { contact ->
+                ContactScreenCard(contact.imageResId, contact.name)
             }
         }
     }

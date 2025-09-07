@@ -3,7 +3,6 @@ package com.example.disasterpreparedness.feature_disasterpreparedness.presentati
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.disasterpreparedness.core.navigation.Routes
 import com.example.disasterpreparedness.feature_disasterpreparedness.domain.repository.DisasterDetailRepository
 import com.example.disasterpreparedness.feature_disasterpreparedness.domain.repository.DisasterRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,7 +24,7 @@ class DisasterDetailViewModel @Inject constructor(
     val uiState: StateFlow<DisasterDetailState> = _uiState.asStateFlow()
 
     // Get the disaster ID from the navigation arguments
-    private val disasterId: String = checkNotNull(savedStateHandle[Routes.DisasterDetail::disasterId.name])
+    private val disasterId: String = checkNotNull(savedStateHandle["disasterId"])
 
     init {
         loadDisasterDetail()

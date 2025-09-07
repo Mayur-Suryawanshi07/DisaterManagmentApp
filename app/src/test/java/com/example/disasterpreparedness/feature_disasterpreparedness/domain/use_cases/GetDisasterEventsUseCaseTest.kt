@@ -1,8 +1,8 @@
 package com.example.disasterpreparedness.feature_disasterpreparedness.domain.use_cases
 
-import com.example.disasterpreparedness.feature_eonet_api.domain.model.DisasterEvent
-import com.example.disasterpreparedness.feature_eonet_api.domain.repository.DisasterRepository
-import com.example.disasterpreparedness.feature_eonet_api.domain.use_cases.GetDisasterEventsUseCase
+import com.example.disasterpreparedness.feature_test_eonet_api.domain.model.DisasterEvent
+import com.example.disasterpreparedness.feature_test_eonet_api.domain.repository.DisasterRepository
+import com.example.disasterpreparedness.feature_test_eonet_api.domain.use_cases.GetDisasterEventsUseCase
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals

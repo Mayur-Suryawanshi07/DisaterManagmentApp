@@ -41,8 +41,9 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.disasterpreparedness.R
-import com.example.disasterpreparedness.core.navigation.Graphs
-import com.example.disasterpreparedness.core.navigation.Routes
+import com.example.disasterpreparedness.core.navigation.destination.main.MainDestination
+import com.example.disasterpreparedness.core.navigation.destination.auth.AuthDestination
+import com.example.disasterpreparedness.core.navigation.destination.signup.SignUpDestination
 import com.example.disasterpreparedness.feature_login.presentation.auth.signupscreen.LoginEvent
 
 @Composable
@@ -60,8 +61,8 @@ fun LogInScreen(
     LaunchedEffect(state.value) {
         when (val s = state.value) {
             is LoginUiState.Authorized -> {
-                navController.navigate(Graphs.Main) {
-                    popUpTo(Graphs.Auth) { inclusive = true } // clear all auth screens
+                navController.navigate(MainDestination) {
+                    popUpTo(AuthDestination) { inclusive = true } // clear all auth screens
                     launchSingleTop = true
                     restoreState = true
                 }
@@ -199,7 +200,7 @@ fun LogInScreen(
                     fontSize = 16.sp,
                     modifier = Modifier
                         .clickable {
-                            navController.navigate(Routes.Signup)
+                            navController.navigate(SignUpDestination)
                         }
                 )
             }

@@ -1,6 +1,6 @@
 package com.example.disasterpreparedness.feature_disasterpreparedness.presentation.state
 
-import com.example.disasterpreparedness.feature_eonet_api.domain.model.DisasterEvent
+import com.example.disasterpreparedness.feature_test_eonet_api.domain.model.DisasterEvent
 import com.example.disasterpreparedness.feature_disasterpreparedness.presentation.screens.disaster_screen.state.DisasterScreenState
 import com.example.disasterpreparedness.feature_disasterpreparedness.presentation.screens.disaster_screen.state.DisasterScreenUiState
 import org.junit.Assert.assertEquals

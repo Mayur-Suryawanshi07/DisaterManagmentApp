@@ -18,6 +18,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.example.disasterpreparedness.feature_disasterpreparedness.domain.model.DisasterAlert
+import com.example.disasterpreparedness.feature_disasterpreparedness.domain.model.Info
 import com.example.disasterpreparedness.feature_disasterpreparedness.presentation.component.MyBottomNavBar
 import com.example.disasterpreparedness.feature_disasterpreparedness.presentation.component.MyTopAppBar
 
@@ -26,96 +27,88 @@ import com.example.disasterpreparedness.feature_disasterpreparedness.presentatio
 fun DisasterScreen(
     viewModel: DisasterScreenViewModel = hiltViewModel(),
     modifier: Modifier = Modifier,
-    navController : NavHostController
+    navController: NavHostController
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-
-    Scaffold(
-        topBar = {
-            MyTopAppBar("Disaster List")
-        },
-        bottomBar = {
-            MyBottomNavBar(navController =navController )
-        }
-
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-
-        Column(
-            modifier = modifier.fillMaxSize().padding(it),
-            horizontalAlignment = Alignment.CenterHorizontally
+        val items = listOf(
+            "ALL",
+            "Weather Alert",
+            "Flood Alert",
+            "Earthquake",
+            "Heat Wave",
+            "Cyclone",
+            "Landslide"
+        )
+        LazyRow(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 8.dp), // Padding for the whole row
+            horizontalArrangement = Arrangement.spacedBy(8.dp) // Space between each Box item
         ) {
+            items(items) { categoryName ->
+                Box(
+                    modifier = Modifier
+                        .clickable {
+                            viewModel.searchDisasterEvents(categoryName)
+                        }
+                        .border(
+                            width = 1.dp,
+                            color = MaterialTheme.colorScheme.primary,
+                            shape = RoundedCornerShape(8.dp)
+                        )
+                        .padding(horizontal = 12.dp, vertical = 8.dp) // Padding inside the Box
+                ) {
+                    Text(text = categoryName)
+                }
+            }
+        }
 
-            val items = listOf("General Alert","Weather Alert", "Flood Alert", "Earthquake", "Heat Wave", "Cyclone", "Landslide")
-            LazyRow(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 8.dp), // Padding for the whole row
-                horizontalArrangement = Arrangement.spacedBy(8.dp) // Space between each Box item
-            ) {
-                items(items) { categoryName ->
-                    Box(
-                        modifier = Modifier
-                            .clickable{
-                                viewModel.searchDisasterEvents(categoryName)
-                            }
-                            .border(
-                                width = 1.dp,
-                                color = MaterialTheme.colorScheme.primary,
-                                shape = RoundedCornerShape(8.dp)
-                            )
-                            .padding(horizontal = 12.dp, vertical = 8.dp) // Padding inside the Box
-                    ) {
-                        Text(text = categoryName)
-                    }
+        // Content based on UI state
+        when (uiState.uiState) {
+            is DisasterScreenUiState.Loading -> {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator()
                 }
             }
 
-            // Content based on UI state
-            when (uiState.uiState) {
-                is DisasterScreenUiState.Loading -> {
-                    LoadingState()
-                }
-
-                is DisasterScreenUiState.Success -> {
-                    val events = (uiState.uiState as DisasterScreenUiState.Success).events
-                    if (events.isEmpty()) {
-                        EmptyState()
-                    } else {
-                        DisasterEventList(
-                            events = events,
-                            onRefresh = viewModel::refreshEvents,
-                            isRefreshing = uiState.isRefreshing,
-                            navController
-                        )
-                    }
-                }
-
-                is DisasterScreenUiState.Error -> {
-                    val errorMessage = (uiState.uiState as DisasterScreenUiState.Error).message
-                    ErrorState(
-                        message = errorMessage,
-                        onRetry = viewModel::retry
+            is DisasterScreenUiState.Success -> {
+                val events = (uiState.uiState as DisasterScreenUiState.Success).events
+                if (events.isEmpty()) {
+                    EmptyState()
+                } else {
+                    DisasterEventList(
+                        events = events,
+                        onRefresh = viewModel::refreshEvents,
+                        isRefreshing = uiState.isRefreshing,
+                        navController,
                     )
                 }
-
-                is DisasterScreenUiState.Empty -> {
-                    EmptyState()
-                }
             }
+
+            is DisasterScreenUiState.Error -> {
+                val errorMessage = (uiState.uiState as DisasterScreenUiState.Error).message
+                ErrorState(
+                    message = errorMessage,
+                    onRetry = viewModel::retry
+                )
+            }
+
+            is DisasterScreenUiState.Empty -> {
+                EmptyState()
+            }
+
+            is DisasterScreenUiState.SuccessInfo -> TODO()
         }
     }
 }
 
-@Composable
-private fun LoadingState() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        CircularProgressIndicator()
-    }
-}
 
 @Composable
 private fun EmptyState() {
@@ -181,7 +174,7 @@ private fun DisasterEventList(
     events: List<DisasterAlert>,
     onRefresh: () -> Unit,
     isRefreshing: Boolean,
-    navController: NavHostController
+    navController: NavHostController,
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),

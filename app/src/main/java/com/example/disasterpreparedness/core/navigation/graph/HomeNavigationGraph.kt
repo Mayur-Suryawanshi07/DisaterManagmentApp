@@ -1,33 +1,36 @@
-package com.example.disasterpreparedness.feature_disasterpreparedness.presentation.Navigation
+package com.example.disasterpreparedness.core.navigation.graph
 
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.example.disasterpreparedness.core.navigation.Graphs
-import com.example.disasterpreparedness.core.navigation.Routes
+import com.example.disasterpreparedness.core.navigation.destination.Contact.ContactDestination
+import com.example.disasterpreparedness.core.navigation.destination.disaster.DisasterDestination
+import com.example.disasterpreparedness.core.navigation.destination.disasterdetail.DisasterDetailDestination
+import com.example.disasterpreparedness.core.navigation.destination.main.MainDestination
+import com.example.disasterpreparedness.core.navigation.destination.profile.ProfileDestination
 import com.example.disasterpreparedness.feature_disasterpreparedness.presentation.screens.contact_screen.ContactScreen
 import com.example.disasterpreparedness.feature_disasterpreparedness.presentation.screens.disaster_detail_screen.DisasterDetailScreen
 import com.example.disasterpreparedness.feature_disasterpreparedness.presentation.screens.disaster_screen.DisasterScreen
 import com.example.disasterpreparedness.feature_disasterpreparedness.presentation.screens.profilescreen.ProfileScreen
 
 
-fun NavGraphBuilder.mainNavGraph(navController: NavHostController) {
+fun NavGraphBuilder.homeNavigationGraph(navController: NavHostController) {
 
-    navigation<Graphs.Main>(startDestination = Routes.Home){
-        composable<Routes.Home> {
+    navigation<MainDestination>(startDestination = DisasterDestination){
+        composable<DisasterDestination> {
             DisasterScreen(navController = navController)
         }
 
-        composable<Routes.Contact> {
+        composable<ContactDestination> {
             ContactScreen(navController = navController)
         }
 
-        composable<Routes.Profile> {
+        composable<ProfileDestination> {
             ProfileScreen(navController = navController)
         }
 
-        composable<Routes.DisasterDetail> {
+        composable<DisasterDetailDestination> {
             DisasterDetailScreen(navController = navController)
         }
 

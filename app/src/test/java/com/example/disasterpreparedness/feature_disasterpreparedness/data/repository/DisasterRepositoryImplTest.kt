@@ -1,8 +1,8 @@
 package com.example.disasterpreparedness.feature_disasterpreparedness.data.repository
 
-import com.example.disasterpreparedness.feature_eonet_api.data.remote.api.DisasterApiService
-import com.example.disasterpreparedness.feature_eonet_api.data.remote.model.DisasterEventDto
-import com.example.disasterpreparedness.feature_eonet_api.data.repository.DisasterRepositoryImpl
+import com.example.disasterpreparedness.feature_test_eonet_api.data.remote.api.DisasterApiService
+import com.example.disasterpreparedness.feature_test_eonet_api.data.remote.model.DisasterEventDto
+import com.example.disasterpreparedness.feature_test_eonet_api.data.repository.DisasterRepositoryImpl
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals

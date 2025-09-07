@@ -4,10 +4,10 @@
     <selectionStates>
       <SelectionState runConfigName="DisasterManagment">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2025-08-24T20:24:27.160784Z">
+        <DropdownSelection timestamp="2025-09-04T15:07:08.441937200Z">
           <Target type="DEFAULT_BOOT">
             <handle>
-              <DeviceId pluginId="PhysicalDevice" identifier="serial=a179ddb7" />
+              <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\Mayur\.android\avd\Pixel_7.avd" />
             </handle>
           </Target>
         </DropdownSelection>

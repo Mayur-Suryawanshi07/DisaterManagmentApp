@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -35,9 +34,8 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.disasterpreparedness.R
-import com.example.disasterpreparedness.core.navigation.Graphs
-import com.example.disasterpreparedness.core.navigation.Routes
-import com.example.disasterpreparedness.feature_login.presentation.auth.loginscreen.LoginUiState
+import com.example.disasterpreparedness.core.navigation.destination.auth.AuthDestination
+import com.example.disasterpreparedness.core.navigation.destination.login.LoginDestination
 
 @Composable
 fun SignUpScreen(navController: NavHostController) {
@@ -54,8 +52,8 @@ fun SignUpScreen(navController: NavHostController) {
    LaunchedEffect(state.value) {
        when(state.value){
            is SignUpState.Authenticated -> {
-               navController.navigate(Graphs.Auth){
-                   popUpTo(Graphs.Auth){inclusive = true}
+               navController.navigate(AuthDestination){
+                   popUpTo(LoginDestination){inclusive = true}
                }
            }
            is SignUpState.Error -> {
@@ -182,7 +180,6 @@ fun SignUpScreen(navController: NavHostController) {
                         }
                 )
             }
-
         }
     }
 }
