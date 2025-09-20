@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.example.disasterpreparedness.core.navigation.graph.DisasterNavGraph
+import com.example.disasterpreparedness.core.navigation.DisasterPreparednessApp
 import com.example.disasterpreparedness.core.theme.DisasterManagmentAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -16,7 +16,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             DisasterManagmentAppTheme() {
-                DisasterNavGraph()
+                DisasterPreparednessApp()
             }
         }
     }

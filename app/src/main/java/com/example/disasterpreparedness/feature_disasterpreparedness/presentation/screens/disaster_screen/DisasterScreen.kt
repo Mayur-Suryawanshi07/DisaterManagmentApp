@@ -26,7 +26,6 @@ import com.example.disasterpreparedness.feature_disasterpreparedness.presentatio
 @Composable
 fun DisasterScreen(
     viewModel: DisasterScreenViewModel = hiltViewModel(),
-    modifier: Modifier = Modifier,
     navController: NavHostController
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -43,6 +42,7 @@ fun DisasterScreen(
             "Cyclone",
             "Landslide"
         )
+
         LazyRow(
             modifier = Modifier
                 .fillMaxWidth()

@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.example.disasterpreparedness.core.navigation.destination.disasterdetail.DisasterDetailDestination
+import com.example.disasterpreparedness.core.navigation.destination.Routes
 import com.example.disasterpreparedness.feature_disasterpreparedness.domain.model.DisasterAlert
 
 @Composable
@@ -21,7 +21,7 @@ fun DisasterScreenEventCard(
             .fillMaxWidth()
             .padding(vertical = 8.dp)
             .clickable {
-                navController.navigate(DisasterDetailDestination(disasterId = event.id))
+                navController.navigate(Routes.DisasterDetail(disasterId = event.id))
             }
     ) {
         Column(modifier = Modifier.padding(16.dp)) {

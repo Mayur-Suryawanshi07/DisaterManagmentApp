@@ -34,8 +34,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.disasterpreparedness.R
-import com.example.disasterpreparedness.core.navigation.destination.auth.AuthDestination
-import com.example.disasterpreparedness.core.navigation.destination.login.LoginDestination
+import com.example.disasterpreparedness.core.navigation.destination.Graph
 
 @Composable
 fun SignUpScreen(navController: NavHostController) {
@@ -52,8 +51,10 @@ fun SignUpScreen(navController: NavHostController) {
    LaunchedEffect(state.value) {
        when(state.value){
            is SignUpState.Authenticated -> {
-               navController.navigate(AuthDestination){
-                   popUpTo(LoginDestination){inclusive = true}
+               navController.navigate(Graph.Auth){
+                   popUpTo(Graph.Auth){
+                       inclusive = true
+                   }
                }
            }
            is SignUpState.Error -> {
