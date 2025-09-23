@@ -6,6 +6,7 @@ import com.example.disasterpreparedness.feature_disasterpreparedness.domain.mode
 sealed class DisasterScreenUiState {
     object Loading : DisasterScreenUiState()
     data class Success(val events: List<DisasterAlert>) : DisasterScreenUiState()
+    data class DisasterDetail (val disaster: List<DisasterDetail>) : DisasterScreenUiState()
     data class SuccessInfo(val info: List<Info>) : DisasterScreenUiState()
     data class Error(val message: String) : DisasterScreenUiState()
     object Empty : DisasterScreenUiState()

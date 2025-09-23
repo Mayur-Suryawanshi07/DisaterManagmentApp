@@ -10,9 +10,11 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.disasterpreparedness.core.navigation.destination.Routes
 import com.example.disasterpreparedness.feature_disasterpreparedness.domain.model.DisasterAlert
+import com.example.disasterpreparedness.feature_disasterpreparedness.domain.model.DisasterDetailAlert
 
 @Composable
 fun DisasterScreenEventCard(
+    disaster: DisasterDetailAlert,
     event: DisasterAlert,
     navController: NavHostController
 ) {

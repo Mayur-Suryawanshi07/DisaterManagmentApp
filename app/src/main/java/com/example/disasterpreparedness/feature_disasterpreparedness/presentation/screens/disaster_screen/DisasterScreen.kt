@@ -18,9 +18,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.example.disasterpreparedness.feature_disasterpreparedness.domain.model.DisasterAlert
-import com.example.disasterpreparedness.feature_disasterpreparedness.domain.model.Info
-import com.example.disasterpreparedness.feature_disasterpreparedness.presentation.component.MyBottomNavBar
-import com.example.disasterpreparedness.feature_disasterpreparedness.presentation.component.MyTopAppBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -80,11 +77,13 @@ fun DisasterScreen(
 
             is DisasterScreenUiState.Success -> {
                 val events = (uiState.uiState as DisasterScreenUiState.Success).events
+                val disaster = (uiState.uiState as DisasterScreenUiState.DisasterDetail).disaster
                 if (events.isEmpty()) {
                     EmptyState()
                 } else {
                     DisasterEventList(
                         events = events,
+                        disaster = disaster,
                         onRefresh = viewModel::refreshEvents,
                         isRefreshing = uiState.isRefreshing,
                         navController,
@@ -104,7 +103,7 @@ fun DisasterScreen(
                 EmptyState()
             }
 
-            is DisasterScreenUiState.SuccessInfo -> TODO()
+            else -> {Unit}
         }
     }
 }
@@ -172,6 +171,7 @@ private fun ErrorState(
 @Composable
 private fun DisasterEventList(
     events: List<DisasterAlert>,
+    disaster: List<DisasterScreenUiState.DisasterDetail>,
     onRefresh: () -> Unit,
     isRefreshing: Boolean,
     navController: NavHostController,
@@ -182,7 +182,7 @@ private fun DisasterEventList(
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(events) { event ->
-            DisasterScreenEventCard(event = event, navController = navController)
+            DisasterScreenEventCard(event = event, navController = navController, disaster = disaster)
         }
     }
 }

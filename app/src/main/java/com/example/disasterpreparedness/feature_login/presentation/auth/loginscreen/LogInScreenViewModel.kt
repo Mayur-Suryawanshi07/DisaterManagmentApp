@@ -68,13 +68,4 @@ class LogInScreenViewModel : ViewModel() {
     }
 
 
-
-    fun signOut() {
-        auth.signOut()
-        _state.update {
-            LoginUiState.Unauthorized
-        }
-    }
-
-
 }

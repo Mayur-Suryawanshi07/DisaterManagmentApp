@@ -17,21 +17,13 @@ fun DisasterPreparednessApp(modifier: Modifier = Modifier) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
 
-    // Determine if we're in auth flow or main flow
     val currentRoute = currentDestination?.route ?: ""
-    val isAuthFlow = currentRoute.contains("Auth") || 
-                     currentRoute.contains("Login") ||
-                     currentRoute.contains("SignUp")
     val isMainFlow = currentRoute.contains("Main") || 
                      currentRoute.contains("Disaster") ||
                      currentRoute.contains("Contact") ||
                      currentRoute.contains("Profile") ||
                      currentRoute.contains("DisasterDetail")
-    
-    // Debug: Print current route for troubleshooting
-    // println("Current Route: $currentRoute, isMainFlow: $isMainFlow, isAuthFlow: $isAuthFlow")
 
-    // Get the appropriate title for the top bar
     val topBarTitle = when {
         currentRoute.contains("Disaster") && !currentRoute.contains("Detail") -> "Disaster Preparedness"
         currentRoute.contains("Contact") -> "Emergency Contacts"
@@ -42,13 +34,11 @@ fun DisasterPreparednessApp(modifier: Modifier = Modifier) {
 
     Scaffold(
         topBar = {
-            // Only show top bar for main flow screens, not auth screens
             if (isMainFlow) {
                 MyTopAppBar(title = topBarTitle)
             }
         },
         bottomBar = {
-            // Only show bottom navigation for main flow screens, not auth screens
             if (isMainFlow) {
                 MyBottomNavBar(navController = navController)
             }
